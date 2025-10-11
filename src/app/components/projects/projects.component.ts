@@ -59,17 +59,17 @@ export class ProjectsComponent implements OnInit {
       title: 'MediCart – Online Pharmacy Platform',
       description: 'A pharmacy e-commerce platform that enables secure online medicine purchases with prescription uploads, inventory management, and order tracking.',
       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop',
-      technologies: ['Angular', 'Node.js', 'MongoDB', 'Stripe API', 'Socket.io'],
+      technologies: ['Angular', 'Django REST Framework', 'Python', 'Stripe API', 'Socket.io'],
       githubUrl: 'https://github.com/keshriaditya/medicart',
       demoUrl: 'https://ecommerce-demo.com',
       featured: false
     },
     {
       id: 3,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, file sharing, and team collaboration features. Built with modern React and Express.js.',
+      title: 'To-Do List Application',
+      description: 'A comprehensive task management web application with RESTful APIs for CRUD operations, MySQL database integration, and a responsive web interface for easy task management.',
       image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&h=300&fit=crop',
-      technologies: ['React', 'Express.js', 'PostgreSQL', 'Socket.io', 'Redis'],
+      technologies: ['Flask', 'MySQL', 'HTML/CSS/JavaScript','Python', 'Jinja2'],
       githubUrl: 'https://github.com/keshriaditya/task-manager',
       demoUrl: 'https://taskmanager-demo.com',
       featured: false
@@ -79,7 +79,7 @@ export class ProjectsComponent implements OnInit {
       title: 'Weather Dashboard',
       description: 'A responsive weather dashboard with interactive maps, forecasts, and weather alerts. Features beautiful data visualizations and location-based services.',
       image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=500&h=300&fit=crop',
-      technologies: ['Vue.js', 'D3.js', 'OpenWeather API', 'Mapbox', 'Chart.js'],
+      technologies: ['React', 'Flask', 'OpenWeatherMap API', 'SQLite', 'Python'],
       githubUrl: 'https://github.com/keshriaditya/weather-report',
       demoUrl: 'https://weather-demo.com',
       featured: false
@@ -87,9 +87,9 @@ export class ProjectsComponent implements OnInit {
     {
       id: 5,
       title: 'AI Chat Assistant',
-      description: 'An intelligent chat assistant powered by machine learning, capable of natural language processing and context-aware responses.',
+      description: 'An intelligent chat assistant with real-time messaging, typing indicators, chat history, and session management. Features a modern responsive interface with natural language processing capabilities.',
       image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=500&h=300&fit=crop',
-      technologies: ['Python', 'TensorFlow', 'Flask', 'React', 'Docker'],
+      technologies: ['React', 'Python', 'Flask', 'Machine Learning', 'WebSocket'],
       githubUrl: 'https://github.com/keshriaditya/chat-assist',
       demoUrl: 'https://aichat-demo.com',
       featured: false
@@ -97,9 +97,9 @@ export class ProjectsComponent implements OnInit {
     {
       id: 6,
       title: 'Cryptocurrency Tracker',
-      description: 'Real-time cryptocurrency tracking application with portfolio management, price alerts, and market analysis features.',
+      description: 'A modern, responsive web application for tracking real-time cryptocurrency prices and managing personal watchlists. Features live market data, detailed coin analysis, advanced search functionality, and interactive price charts.',
       image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&h=300&fit=crop',
-      technologies: ['React Native', 'Node.js', 'CoinGecko API', 'MongoDB', 'WebSocket'],
+      technologies: ['Angular', 'Node.js', 'Express.js', 'SQLite', 'CoinGecko API'],
       githubUrl: 'https://github.com/keshriaditya/crypto-tracker',
       demoUrl: 'https://cryptotracker-demo.com',
       featured: false
