@@ -2,7 +2,7 @@
 
 A modern, responsive personal portfolio website showcasing my journey as a Senior Software Developer. Built with Angular 20+ featuring smooth animations, holographic effects, and a futuristic dark theme.
 
-![Portfolio Preview](./docs/assets/images/portfolio.png)
+![Portfolio Preview](./public/assets/images/portfolio.png)
 
 ## 🌟 Live Demo
 
