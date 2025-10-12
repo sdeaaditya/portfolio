@@ -3,7 +3,7 @@ name: Build and Deploy Angular App to GitHub Pages
 on:
   push:
     branches:
-      - main  # or master
+      - main  # Trigger deployment on push to main
 
 jobs:
   build:
@@ -25,13 +25,13 @@ jobs:
         run: npm install -g @angular/cli
 
       - name: Build Angular App
-        run: ng build --configuration production --output-path docs --base-href="/portfolio/"
+        run: ng build --configuration production --output-path browser --base-href="/portfolio/"
 
       - name: Add .nojekyll file
-        run: echo > docs/.nojekyll
+        run: echo > browser/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
+          publish_dir: ./browser
