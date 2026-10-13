@@ -15,7 +15,6 @@ type ScreenMode = 'profile' | 'terminal' | 'dashboard';
 export class HeroComponent implements OnInit, OnDestroy {
   laptopOpened = true;
   screenPowered = true;
-  booting = true;
   hologramActive = true;
   profileVisible = true;
   terminalActive = false;
@@ -65,7 +64,6 @@ export class HeroComponent implements OnInit, OnDestroy {
   ];
 
   private typingTimeouts: ReturnType<typeof setTimeout>[] = [];
-  private bootTimer?: ReturnType<typeof setTimeout>;
   private clockTimer?: ReturnType<typeof setInterval>;
 
   ngOnInit() {
@@ -75,16 +73,11 @@ export class HeroComponent implements OnInit, OnDestroy {
 
     this.tickClock();
     this.clockTimer = setInterval(() => this.tickClock(), 30_000);
-
-    this.bootTimer = setTimeout(() => {
-      this.booting = false;
-      this.setMode('profile');
-    }, 1400);
+    this.setMode('profile');
   }
 
   ngOnDestroy() {
     this.clearTypingTimers();
-    if (this.bootTimer) clearTimeout(this.bootTimer);
     if (this.clockTimer) clearInterval(this.clockTimer);
   }
 
@@ -140,7 +133,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   }
 
   onMonitorClick() {
-    if (this.booting || !this.screenPowered) return;
+    if (!this.screenPowered) return;
     const order: ScreenMode[] = ['profile', 'terminal', 'dashboard'];
     const next = order[(order.indexOf(this.screenMode) + 1) % order.length];
     this.setMode(next);
@@ -148,7 +141,7 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   setMode(mode: ScreenMode, event?: Event) {
     event?.stopPropagation();
-    if (this.booting || !this.screenPowered) return;
+    if (!this.screenPowered) return;
 
     this.screenMode = mode;
     this.clearTypingTimers();
@@ -175,13 +168,8 @@ export class HeroComponent implements OnInit, OnDestroy {
       this.profileVisible = false;
       this.terminalActive = false;
       this.dashboardActive = false;
-      this.booting = false;
     } else {
-      this.booting = true;
-      this.bootTimer = setTimeout(() => {
-        this.booting = false;
-        this.setMode(this.screenMode || 'profile');
-      }, 900);
+      this.setMode(this.screenMode || 'profile');
     }
   }
 

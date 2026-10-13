@@ -168,7 +168,7 @@
   }
 }
 
-// Premium monitor (photoreal chassis + interactive viewport)
+// Clean CSS monitor — content fills the full screen
 .monitor-container {
   display: flex;
   justify-content: center;
@@ -176,28 +176,28 @@
   z-index: 2;
   position: relative;
   width: 100%;
-  max-width: 640px;
-  padding-top: 24px;
+  max-width: 540px;
+  padding-top: 48px;
+  padding-bottom: 28px;
 
   @media (min-width: 1025px) {
-    max-width: 720px;
-    width: 100%;
-    padding-top: 12px;
+    max-width: 560px;
+    padding-top: 36px;
   }
 
   @media (max-width: 1024px) {
     order: 1;
-    margin-bottom: 2rem;
-    max-width: 560px;
+    margin-bottom: 1.5rem;
+    max-width: 460px;
   }
 
   @media (max-width: 768px) {
-    margin-bottom: 1rem;
-    max-width: 420px;
+    max-width: 380px;
+    padding-top: 28px;
   }
 
   @media (max-width: 480px) {
-    max-width: 340px;
+    max-width: 300px;
   }
 }
 
@@ -207,31 +207,40 @@
   transform-style: preserve-3d;
   transition: transform 0.18s ease-out;
   will-change: transform;
-  filter: drop-shadow(0 22px 40px rgba(0, 0, 0, 0.55));
 
-  .monitor-chassis {
-    width: 100%;
-    height: auto;
-    display: block;
-    pointer-events: none;
-    user-select: none;
-    border-radius: 4px;
+  .monitor-frame {
+    position: relative;
+    border-radius: 18px;
+    padding: 12px 12px 10px;
+    background: linear-gradient(160deg, #3a414c 0%, #1c222b 48%, #12161d 100%);
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  .monitor-chin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14px;
+    margin-top: 6px;
   }
 
   .screen-viewport {
-    position: absolute;
-    /* Tuned to the black panel of premium-monitor.jpg */
-    top: 7.2%;
-    left: 16.8%;
-    width: 66.4%;
-    height: 48.8%;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
-    border-radius: 2px;
+    border-radius: 8px;
     cursor: pointer;
     background:
-      radial-gradient(ellipse at 30% 20%, rgba(20, 48, 72, 0.55), transparent 55%),
-      linear-gradient(160deg, #05080f 0%, #0b1220 55%, #071018 100%);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+      radial-gradient(ellipse at 50% 35%, rgba(40, 90, 120, 0.35), transparent 60%),
+      radial-gradient(circle at 20% 80%, rgba(79, 209, 255, 0.12), transparent 45%),
+      linear-gradient(165deg, #122032 0%, #0b1524 45%, #0a101c 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(120, 180, 210, 0.15),
+      inset 0 0 40px rgba(0, 0, 0, 0.35);
   }
 
   .os-bar {
@@ -242,18 +251,18 @@
     z-index: 6;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.28rem 0.55rem;
-    background: linear-gradient(180deg, rgba(8, 14, 24, 0.92), rgba(8, 14, 24, 0.55));
-    border-bottom: 1px solid rgba(90, 200, 220, 0.18);
-    font-size: 0.62rem;
+    gap: 0.45rem;
+    padding: 0.4rem 0.7rem;
+    background: rgba(8, 16, 28, 0.78);
+    border-bottom: 1px solid rgba(90, 200, 220, 0.2);
+    font-size: 0.68rem;
     letter-spacing: 0.04em;
-    color: rgba(220, 236, 245, 0.85);
+    color: rgba(220, 236, 245, 0.9);
     pointer-events: none;
 
     .os-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #3fd6c8;
       box-shadow: 0 0 8px rgba(63, 214, 200, 0.8);
@@ -274,62 +283,28 @@
     }
   }
 
-  .boot-sequence,
   .screen-off {
     position: absolute;
     inset: 0;
     z-index: 8;
     display: grid;
     place-content: center;
-    gap: 0.55rem;
+    gap: 0.4rem;
     text-align: center;
-    background: #020406;
-    color: rgba(200, 230, 240, 0.9);
-  }
-
-  .boot-logo {
-    width: 42px;
-    height: 42px;
-    margin: 0 auto;
-    border-radius: 12px;
-    display: grid;
-    place-items: center;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    background: linear-gradient(145deg, #1c3348, #0d1a26);
-    border: 1px solid rgba(90, 200, 220, 0.35);
-    box-shadow: 0 0 24px rgba(63, 214, 200, 0.25);
-  }
-
-  .boot-bar {
-    width: 120px;
-    height: 3px;
-    margin: 0 auto;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    overflow: hidden;
+    background: #05070b;
+    color: rgba(180, 200, 215, 0.85);
 
     span {
-      display: block;
-      height: 100%;
-      width: 35%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #3fc4d8, #7fe0ef);
-      animation: bootLoad 1.1s ease-in-out infinite;
+      margin: 0;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
-  }
 
-  .boot-sequence p,
-  .screen-off span {
-    margin: 0;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .screen-off small {
-    opacity: 0.55;
-    font-size: 0.65rem;
+    small {
+      opacity: 0.55;
+      font-size: 0.65rem;
+    }
   }
 
   .screen-glare {
@@ -338,7 +313,7 @@
     z-index: 7;
     pointer-events: none;
     mix-blend-mode: screen;
-    opacity: 0.85;
+    opacity: 0.7;
     transition: background 0.08s linear;
   }
 
@@ -350,24 +325,23 @@
     background: repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 2px,
-      rgba(120, 220, 240, 0.03) 2px,
-      rgba(120, 220, 240, 0.03) 4px
+      transparent 3px,
+      rgba(120, 220, 240, 0.025) 3px,
+      rgba(120, 220, 240, 0.025) 6px
     );
-    opacity: 0.55;
   }
 
   .interact-hint {
     position: absolute;
-    right: 8px;
-    bottom: 8px;
+    right: 10px;
+    bottom: 10px;
     z-index: 9;
-    font-size: 0.62rem;
-    color: rgba(160, 220, 235, 0.75);
-    background: rgba(6, 12, 20, 0.72);
-    border: 1px solid rgba(90, 200, 220, 0.2);
-    padding: 3px 7px;
-    border-radius: 4px;
+    font-size: 0.65rem;
+    color: rgba(180, 230, 245, 0.85);
+    background: rgba(6, 14, 24, 0.75);
+    border: 1px solid rgba(90, 200, 220, 0.25);
+    padding: 4px 8px;
+    border-radius: 5px;
     opacity: 0;
     transform: translateY(4px);
     transition: opacity 0.25s ease, transform 0.25s ease;
@@ -380,42 +354,58 @@
   }
 
   .power-led {
-    position: absolute;
-    left: 50%;
-    top: 57.6%;
-    width: 10px;
-    height: 10px;
-    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
     border: 0;
     padding: 0;
     border-radius: 50%;
     cursor: pointer;
-    background: #1a222c;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-    z-index: 4;
+    background: #2a323c;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
     transition: background 0.25s ease, box-shadow 0.25s ease;
 
     &.on {
-      background: #3aa8ff;
-      box-shadow:
-        0 0 8px rgba(58, 168, 255, 0.95),
-        0 0 16px rgba(58, 168, 255, 0.45);
+      background: #3fd6c8;
+      box-shadow: 0 0 8px rgba(63, 214, 200, 0.9);
       animation: ledPulse 2.4s ease-in-out infinite;
     }
   }
 
-  .mode-dock {
-    position: absolute;
-    left: 50%;
-    bottom: 2%;
-    transform: translateX(-50%);
+  .monitor-stand {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -2px;
+
+    .stand-neck {
+      width: 14px;
+      height: 36px;
+      background: linear-gradient(90deg, #2a313a, #4a5562 45%, #242b34);
+      border-radius: 0 0 4px 4px;
+    }
+
+    .stand-base {
+      width: 130px;
+      height: 12px;
+      margin-top: -2px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #3a4450, #1a2028);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  .mode-dock {
+    display: flex;
+    justify-content: center;
     gap: 0.35rem;
-    z-index: 5;
-    padding: 0.3rem;
+    margin-top: 14px;
+    padding: 0.35rem;
     border-radius: 999px;
-    background: rgba(8, 12, 18, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(8, 14, 22, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
   }
 
@@ -425,19 +415,19 @@
     gap: 0.25rem;
     border: 0;
     cursor: pointer;
-    color: rgba(210, 225, 235, 0.7);
+    color: rgba(210, 225, 235, 0.75);
     background: transparent;
     border-radius: 999px;
-    padding: 0.28rem 0.55rem;
-    font-size: 0.65rem;
+    padding: 0.32rem 0.6rem;
+    font-size: 0.68rem;
     letter-spacing: 0.02em;
     transition: background 0.2s ease, color 0.2s ease;
 
     mat-icon {
-      font-size: 14px;
-      width: 14px;
-      height: 14px;
-      line-height: 14px;
+      font-size: 15px;
+      width: 15px;
+      height: 15px;
+      line-height: 15px;
     }
 
     &:hover {
@@ -457,12 +447,8 @@
     }
   }
 
-  &.booting .screen-viewport {
-    background: #020406;
-  }
-
   &:not(.powered) .screen-viewport {
-    background: #000;
+    background: #0a0c10;
   }
 }
 
@@ -603,8 +589,8 @@
 
 .hologram-rings {
   position: absolute;
-  width: min(72%, 210px);
-  height: min(72%, 210px);
+  width: min(78%, 240px);
+  height: min(78%, 240px);
 
   .ring {
     position: absolute;
@@ -721,8 +707,8 @@
 
 .profile-image {
   position: relative;
-  width: min(38vw, 128px);
-  height: min(38vw, 128px);
+  width: min(42vw, 150px);
+  height: min(42vw, 150px);
   margin: 0 auto;
   border-radius: 50%;
   overflow: hidden;
