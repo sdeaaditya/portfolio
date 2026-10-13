@@ -18,6 +18,7 @@ export class FooterComponent {
     { label: 'About', anchor: 'education' },
     { label: 'Projects', anchor: 'projects' },
     { label: 'Experience', anchor: 'experience' },
+    { label: 'Alchemist Demo', anchor: 'alchemist-demo' },
     { label: 'Skills', anchor: 'tech-stack' },
     { label: 'Contact', anchor: 'contact' }
   ];

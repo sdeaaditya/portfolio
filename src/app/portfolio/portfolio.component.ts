@@ -6,6 +6,7 @@ import { HeroComponent } from '../components/hero/hero.component';
 import { EducationComponent } from '../components/education/education.component';
 import { ProjectsComponent } from '../components/projects/projects.component';
 import { ExperienceComponent } from '../components/experience/experience.component';
+import { AlchemistDemoComponent } from '../components/alchemist-demo/alchemist-demo.component';
 import { TechStackComponent } from '../components/tech-stack/tech-stack.component';
 import { ContactComponent } from '../components/contact/contact.component';
 import { FooterComponent } from '../components/footer/footer.component';
@@ -21,6 +22,7 @@ import { FooterComponent } from '../components/footer/footer.component';
     EducationComponent,
     ProjectsComponent,
     ExperienceComponent,
+    AlchemistDemoComponent,
     TechStackComponent,
     ContactComponent,
     FooterComponent

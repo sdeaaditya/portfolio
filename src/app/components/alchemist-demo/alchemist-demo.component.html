@@ -1,0 +1,104 @@
+<section id="alchemist-demo" class="alchemist-section">
+  <div class="container">
+    <div class="section-header" [@slideInUp]="visible ? 'in' : null">
+      <h2 class="section-title">Alchemist Mini Demo</h2>
+      <p class="section-subtitle">
+        Paste sales-style text and get a mock Alchemist summary — inspired by the ZS Associates agent that extracts PDF insights across 133 territories.
+      </p>
+    </div>
+
+    <div class="demo-grid" [@slideInUp]="visible ? 'in' : null">
+      <div class="panel input-panel">
+        <div class="panel-header">
+          <mat-icon>description</mat-icon>
+          <h3>Paste territory / sales text</h3>
+        </div>
+
+        <textarea
+          [(ngModel)]="inputText"
+          rows="12"
+          placeholder="Paste medicine sales notes, territory excerpts, or PDF-style text here…"
+          [disabled]="isAnalyzing"></textarea>
+
+        <div class="actions">
+          <button mat-stroked-button type="button" (click)="loadSample()" [disabled]="isAnalyzing">
+            <mat-icon>science</mat-icon>
+            Load sample
+          </button>
+          <button mat-stroked-button type="button" (click)="clearInput()" [disabled]="isAnalyzing">
+            <mat-icon>backspace</mat-icon>
+            Clear
+          </button>
+          <button mat-raised-button color="primary" type="button" class="analyze-btn" (click)="analyze()" [disabled]="isAnalyzing">
+            <mat-icon>auto_awesome</mat-icon>
+            {{ isAnalyzing ? 'Analyzing…' : 'Analyze with Alchemist' }}
+          </button>
+        </div>
+
+        <p class="status" *ngIf="statusMessage">{{ statusMessage }}</p>
+        <mat-progress-bar *ngIf="isAnalyzing" mode="indeterminate"></mat-progress-bar>
+        <p class="disclaimer">Demo only — client-side mock extraction. No data is sent to a model or server.</p>
+      </div>
+
+      <div class="panel result-panel" [class.has-result]="!!result">
+        <div class="panel-header">
+          <mat-icon>insights</mat-icon>
+          <h3>Mock insight report</h3>
+        </div>
+
+        <div class="empty-state" *ngIf="!result && !isAnalyzing">
+          <mat-icon>biotech</mat-icon>
+          <p>Your Alchemist-style summary will appear here — top medicines, share %, and territory cues.</p>
+        </div>
+
+        <div class="result" *ngIf="result">
+          <p class="summary">{{ result.summary }}</p>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="value">{{ result.territoriesCovered }}</span>
+              <span class="label">Territories</span>
+            </div>
+            <div class="metric">
+              <span class="value">{{ result.totalMentions }}</span>
+              <span class="label">Medicines detected</span>
+            </div>
+            <div class="metric">
+              <span class="value">{{ result.topMedicines[0]?.share || 0 }}%</span>
+              <span class="label">Top share</span>
+            </div>
+          </div>
+
+          <h4>Performance ranking</h4>
+          <div class="medicine-list">
+            <div class="medicine-row" *ngFor="let med of result.topMedicines; let i = index">
+              <div class="rank">#{{ i + 1 }}</div>
+              <div class="med-info">
+                <div class="name-row">
+                  <span class="name">{{ med.name }}</span>
+                  <span class="trend" [class]="med.trend">
+                    <mat-icon>
+                      {{ med.trend === 'up' ? 'trending_up' : med.trend === 'down' ? 'trending_down' : 'trending_flat' }}
+                    </mat-icon>
+                  </span>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill" [style.width.%]="med.share"></div>
+                </div>
+              </div>
+              <div class="share">{{ med.share }}%</div>
+            </div>
+          </div>
+
+          <h4>Highlights</h4>
+          <ul class="highlights">
+            <li *ngFor="let item of result.highlights">
+              <mat-icon>check_circle</mat-icon>
+              <span>{{ item }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
