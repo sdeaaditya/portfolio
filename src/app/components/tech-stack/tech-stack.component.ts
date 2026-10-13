@@ -10,7 +10,7 @@ interface Technology {
   icon: string;
   experience: string;
   level: number; // 1-5 scale
-  category: 'frontend' | 'backend' | 'database' | 'tools' | 'cloud';
+  category: 'frontend' | 'backend' | 'database' | 'tools' | 'cloud' | 'genai';
   color: string;
 }
 
@@ -226,6 +226,56 @@ export class TechStackComponent implements OnInit {
       level: 4,
       category: 'cloud',
       color: '#ffca28'
+    },
+
+    // Gen AI
+    {
+      name: 'LLM Agents',
+      icon: '🤖',
+      experience: '1+ years',
+      level: 4,
+      category: 'genai',
+      color: '#10a37f'
+    },
+    {
+      name: 'OpenAI / GPT',
+      icon: '🧠',
+      experience: '1+ years',
+      level: 4,
+      category: 'genai',
+      color: '#412991'
+    },
+    {
+      name: 'RAG / Embeddings',
+      icon: '🔎',
+      experience: '1+ years',
+      level: 3.5,
+      category: 'genai',
+      color: '#00bfa5'
+    },
+    {
+      name: 'LangChain',
+      icon: '🔗',
+      experience: '1+ years',
+      level: 3.5,
+      category: 'genai',
+      color: '#1c3c3c'
+    },
+    {
+      name: 'Prompt Engineering',
+      icon: '✍️',
+      experience: '1+ years',
+      level: 4,
+      category: 'genai',
+      color: '#ff6b35'
+    },
+    {
+      name: 'Document AI',
+      icon: '📄',
+      experience: '1+ years',
+      level: 4,
+      category: 'genai',
+      color: '#5c6bc0'
     }
   ];
 
@@ -234,7 +284,8 @@ export class TechStackComponent implements OnInit {
     { key: 'backend', label: 'Backend', icon: 'dns' },
     { key: 'database', label: 'Database', icon: 'storage' },
     { key: 'tools', label: 'Tools', icon: 'build' },
-    { key: 'cloud', label: 'Cloud', icon: 'cloud' }
+    { key: 'cloud', label: 'Cloud', icon: 'cloud' },
+    { key: 'genai', label: 'Gen AI', icon: 'auto_awesome' }
   ];
 
   ngOnInit() {

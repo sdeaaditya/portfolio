@@ -50,9 +50,25 @@ export class ExperienceComponent implements OnInit {
   experiences: Experience[] = [
     {
       id: 1,
+      company: 'Netlink Software Group',
+      position: 'Senior Software Developer',
+      duration: 'Dec 2025 - Present',
+      location: 'Remote / India',
+      description: 'As a Senior Software Developer at Netlink Software Group, I build enterprise backend platforms and GenAI-powered agents for life-science and product feedback use cases. I work across Python, FastAPI, React, cloud orchestration, and AI agent workflows to deliver production-ready solutions for client programs.',
+      achievements: [
+        'Evidence Planner (Dec 2025 – Jun 2026): Built a portal to create and update medicine-related activities and publish new medicine data for stakeholders across planning and publication workflows',
+        'Alchemist AI Agent (mid-Jun 2026 – Aug 2026): Developed an AI agent that tracks medicine sales across 133 territories; users upload PDF data, the agent extracts insights, and returns sales performance percentages with top-performing medicines',
+        'Feedback Agent (Aug 2026 – Present): Built an installable feedback agent that captures mouse interactions, supports screen recording, converses with users about bugs or feedback, and creates tickets on Jira, Confluence, or Azure DevOps boards based on the integrated tool'
+      ],
+      technologies: ['Python', 'FastAPI', 'React', 'GenAI', 'AWS', 'Docker', 'Airflow', 'PDF Parsing'],
+      logo: 'assets/images/Netlink.svg',
+      current: true
+    },
+    {
+      id: 2,
       company: 'ZeOmega Infotech',
       position: 'Senior Full Stack Developer',
-      duration: 'Jul 2024 - Present',
+      duration: 'Jul 2024 - Dec 2025',
       location: 'Bangalore, Karnataka',
       description: 'As a Senior Software Developer, I led the design and development of scalable healthcare applications, architected microservices, and implemented secure API integrations. I mentored junior developers, drove best practices, and collaborated with cross-functional teams to deliver cloud-native solutions on Kubernetes and Rancher, ensuring high performance, reliability, and security.',
       achievements: [
@@ -64,10 +80,10 @@ export class ExperienceComponent implements OnInit {
       ],
       technologies: ['Angular', 'Python', 'WSO2', 'Docker', 'Kubernetes', 'Java', 'Azure'],
       logo: 'assets/images/Zeomega.jpeg',
-      current: true
+      current: false
     },
     {
-      id: 2,
+      id: 3,
       company: 'ZeOmega Infotech',
       position: 'Software Developer',
       duration: 'Sep 2021 - Jun 2024',
@@ -84,7 +100,7 @@ export class ExperienceComponent implements OnInit {
       current: false
     },
     {
-      id: 3,
+      id: 4,
       company: 'Newton School',
       position: 'Software Developer Intern',
       duration: 'Mar 2021 - Aug 2021',
