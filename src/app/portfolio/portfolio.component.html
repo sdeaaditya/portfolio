@@ -1,5 +1,13 @@
 <div class="scroll-progress" [style.width.%]="scrollProgress" aria-hidden="true"></div>
 
+<div class="cursor-trail" aria-hidden="true">
+  <span
+    class="trail-dot"
+    *ngFor="let dot of trailDots"
+    [style.left.px]="dot.x"
+    [style.top.px]="dot.y"></span>
+</div>
+
 <!-- Header/Navbar -->
 <app-header></app-header>
 
@@ -17,8 +25,9 @@
   <!-- Experience Section -->
   <app-experience></app-experience>
 
-  <!-- Alchemist Mini Demo -->
+  <!-- Alchemist Mini Demo (kept in codebase, hidden from build/UI)
   <app-alchemist-demo></app-alchemist-demo>
+  -->
   
   <!-- Tech Stack Section -->
   <app-tech-stack></app-tech-stack>

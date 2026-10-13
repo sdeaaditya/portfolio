@@ -11,6 +11,46 @@
   pointer-events: none;
 }
 
+.cursor-trail {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1999;
+}
+
+.trail-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.75), rgba(102, 126, 234, 0));
+  animation: trailFade 0.55s ease-out forwards;
+}
+
+@keyframes trailFade {
+  to {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+:host ::ng-deep .magnetic {
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-trail {
+    display: none;
+  }
+
+  :host ::ng-deep .magnetic {
+    transform: none !important;
+  }
+}
+
 .portfolio-container {
   scroll-behavior: smooth;
   overflow-x: hidden;

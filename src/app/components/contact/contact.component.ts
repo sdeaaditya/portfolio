@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
@@ -23,17 +21,22 @@ interface ContactInfo {
   link?: string;
 }
 
+type ChatField = 'name' | 'email' | 'subject' | 'message' | 'done';
+
+interface ChatMessage {
+  from: 'bot' | 'user';
+  text: string;
+}
+
 @Component({
   selector: 'app-contact',
   standalone: true,
   imports: [
-    CommonModule, 
-    ReactiveFormsModule,
-    MatCardModule, 
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule, 
-    MatIconModule, 
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
     MatSnackBarModule
   ],
   templateUrl: './contact.component.html',
@@ -63,9 +66,22 @@ interface ContactInfo {
   ]
 })
 export class ContactComponent implements OnInit {
+  @ViewChild('chatBody') chatBody?: ElementRef<HTMLDivElement>;
+
   visible = false;
-  contactForm: FormGroup;
-  isSubmitting = false;
+  draft = '';
+  isTyping = false;
+  currentField: ChatField = 'name';
+  messages: ChatMessage[] = [];
+
+  collected = {
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  };
+
+  readonly emailTo = 'akkeshriaditya@gmail.com';
 
   socialLinks: SocialLink[] = [
     {
@@ -85,25 +101,7 @@ export class ContactComponent implements OnInit {
       url: 'https://twitter.com/keshriadityaa',
       icon: 'alternate_email',
       color: '#1da1f2'
-    },
-    // {
-    //   name: 'Instagram',
-    //   url: 'https://instagram.com/sdeaaditya',
-    //   icon: 'camera_alt',
-    //   color: '#e4405f'
-    // },
-    // {
-    //   name: 'YouTube',
-    //   url: 'https://youtube.com/sdeaaditya',
-    //   icon: 'play_circle',
-    //   color: '#ff0000'
-    // },
-    // {
-    //   name: 'Discord',
-    //   url: 'https://discord.gg/sdeaaditya',
-    //   icon: 'chat',
-    //   color: '#7289da'
-    // }
+    }
   ];
 
   contactInfo: ContactInfo[] = [
@@ -131,20 +129,11 @@ export class ContactComponent implements OnInit {
     }
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar
-  ) {
-    this.contactForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      subject: ['', [Validators.required, Validators.minLength(5)]],
-      message: ['', [Validators.required, Validators.minLength(10)]]
-    });
-  }
+  constructor(private snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    // Use Intersection Observer to trigger animations when section is visible
+    this.resetChat(false);
+
     if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -159,31 +148,94 @@ export class ContactComponent implements OnInit {
         observer.observe(element);
       }
     } else {
-      // Fallback for SSR or browsers without IntersectionObserver
       setTimeout(() => {
         this.visible = true;
       }, 500);
     }
   }
 
-  onSubmit() {
-    if (this.contactForm.valid) {
-      this.isSubmitting = true;
-      
-      // Simulate form submission (in real app, this would send to backend)
-      setTimeout(() => {
-        this.isSubmitting = false;
-        this.snackBar.open('Message sent successfully! I\'ll get back to you soon.', 'Close', {
-          duration: 5000,
-          panelClass: ['success-snackbar']
-        });
-        this.contactForm.reset();
-      }, 2000);
-    } else {
-      this.snackBar.open('Please fill in all required fields correctly.', 'Close', {
-        duration: 3000,
-        panelClass: ['error-snackbar']
-      });
+  get placeholder(): string {
+    switch (this.currentField) {
+      case 'name':
+        return 'Type your name…';
+      case 'email':
+        return 'Type your email…';
+      case 'subject':
+        return 'Type a subject…';
+      case 'message':
+        return 'Type your message…';
+      default:
+        return 'Chat complete';
+    }
+  }
+
+  get canSendEmail(): boolean {
+    return this.currentField === 'done';
+  }
+
+  sendDraft() {
+    const value = this.draft.trim();
+    if (!value || this.currentField === 'done' || this.isTyping) {
+      return;
+    }
+
+    if (this.currentField === 'email' && !this.isValidEmail(value)) {
+      this.pushBot('That email looks off — try something like name@example.com');
+      return;
+    }
+
+    if (this.currentField === 'name' && value.length < 2) {
+      this.pushBot('Please share at least a 2-character name.');
+      return;
+    }
+
+    this.messages.push({ from: 'user', text: value });
+    this.collected[this.currentField] = value;
+    this.draft = '';
+    this.scrollChat();
+
+    const nextMap: Record<Exclude<ChatField, 'done'>, ChatField> = {
+      name: 'email',
+      email: 'subject',
+      subject: 'message',
+      message: 'done'
+    };
+
+    const next = nextMap[this.currentField as Exclude<ChatField, 'done'>];
+    this.currentField = next;
+    this.replyForField(next);
+  }
+
+  openMailClient() {
+    if (!this.canSendEmail) {
+      return;
+    }
+
+    const subject = encodeURIComponent(
+      `[Portfolio] ${this.collected.subject} — ${this.collected.name}`
+    );
+    const body = encodeURIComponent(
+      `Hi Aditya,\n\n${this.collected.message}\n\n—\nFrom: ${this.collected.name}\nEmail: ${this.collected.email}\nSent via portfolio contact chatbot`
+    );
+
+    window.location.href = `mailto:${this.emailTo}?subject=${subject}&body=${body}`;
+    this.snackBar.open('Opening your email app with the draft…', 'Close', {
+      duration: 4000,
+      panelClass: ['success-snackbar']
+    });
+  }
+
+  resetChat(announce = true) {
+    this.collected = { name: '', email: '', subject: '', message: '' };
+    this.currentField = 'name';
+    this.draft = '';
+    this.messages = [];
+    this.pushBot(
+      "Hi! I'm Aditya's contact assistant. I'll collect a few details and open an email draft to akkeshriaditya@gmail.com."
+    );
+    this.pushBot("What's your name?");
+    if (announce) {
+      this.snackBar.open('Chat restarted.', 'Close', { duration: 2000 });
     }
   }
 
@@ -197,19 +249,40 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  getFieldError(fieldName: string): string {
-    const field = this.contactForm.get(fieldName);
-    if (field?.errors && field.touched) {
-      if (field.errors['required']) {
-        return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+  private replyForField(field: ChatField) {
+    this.isTyping = true;
+    setTimeout(() => {
+      this.isTyping = false;
+      if (field === 'email') {
+        this.pushBot(`Nice to meet you, ${this.collected.name}! What's your email?`);
+      } else if (field === 'subject') {
+        this.pushBot('Got it. What subject should I use?');
+      } else if (field === 'message') {
+        this.pushBot('Great. Tell me your message or opportunity details.');
+      } else {
+        this.pushBot(
+          `Perfect. I have everything. Tap “Open email draft” and I’ll start a mail to ${this.emailTo}.`
+        );
       }
-      if (field.errors['email']) {
-        return 'Please enter a valid email address';
+      this.scrollChat();
+    }, 450);
+  }
+
+  private pushBot(text: string) {
+    this.messages.push({ from: 'bot', text });
+    this.scrollChat();
+  }
+
+  private isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  private scrollChat() {
+    setTimeout(() => {
+      const el = this.chatBody?.nativeElement;
+      if (el) {
+        el.scrollTop = el.scrollHeight;
       }
-      if (field.errors['minlength']) {
-        return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is too short`;
-      }
-    }
-    return '';
+    }, 30);
   }
 }

@@ -20,6 +20,10 @@ interface AlchemistResult {
   highlights: string[];
 }
 
+/**
+ * Alchemist mini demo — kept in the repo but currently not mounted in the portfolio build.
+ * To re-enable: uncomment the import/usage in portfolio.component.ts/html and nav links.
+ */
 @Component({
   selector: 'app-alchemist-demo',
   standalone: true,

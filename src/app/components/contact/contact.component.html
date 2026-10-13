@@ -2,11 +2,10 @@
   <div class="container">
     <div class="section-header" [@slideInUp]="visible">
       <h2 class="section-title">Get In Touch</h2>
-      <p class="section-subtitle">Let's collaborate and build something amazing together</p>
+      <p class="section-subtitle">Chat with the assistant — it collects details and opens an email draft to me</p>
     </div>
 
     <div class="contact-content">
-      <!-- Contact Information -->
       <div class="contact-info" [@slideInLeft]="visible">
         <div class="info-header">
           <h3>Let's Connect</h3>
@@ -14,8 +13,8 @@
         </div>
 
         <div class="contact-details">
-          <div 
-            class="contact-item" 
+          <div
+            class="contact-item"
             *ngFor="let info of contactInfo"
             [class.clickable]="info.link"
             (click)="openContactLink(info.link || '')">
@@ -32,10 +31,10 @@
         <div class="social-links">
           <h4>Follow Me</h4>
           <div class="social-grid">
-            <button 
-              mat-fab 
+            <button
+              mat-fab
               *ngFor="let social of socialLinks"
-              class="social-btn"
+              class="social-btn magnetic"
               [style.--social-color]="social.color"
               (click)="openSocialLink(social.url)"
               [attr.aria-label]="social.name">
@@ -45,80 +44,81 @@
         </div>
       </div>
 
-      <!-- Contact Form -->
       <div class="contact-form-container" [@slideInRight]="visible">
-        <mat-card class="contact-form-card">
+        <mat-card class="contact-form-card chat-card">
           <mat-card-header>
-            <mat-card-title>Send Me a Message</mat-card-title>
-            <mat-card-subtitle>I'll respond within 24 hours</mat-card-subtitle>
+            <mat-card-title>
+              <mat-icon>smart_toy</mat-icon>
+              Contact Assistant
+            </mat-card-title>
+            <mat-card-subtitle>Collects info, then initiates email to {{ emailTo }}</mat-card-subtitle>
           </mat-card-header>
 
           <mat-card-content>
-            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
-              <div class="form-row">
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Full Name</mat-label>
-                  <input matInput formControlName="name" placeholder="Your full name">
-                  <mat-icon matSuffix>person</mat-icon>
-                  <mat-error>{{ getFieldError('name') }}</mat-error>
-                </mat-form-field>
+            <div class="chat-shell">
+              <div class="chat-body" #chatBody>
+                <div
+                  class="chat-bubble"
+                  *ngFor="let msg of messages"
+                  [class.bot]="msg.from === 'bot'"
+                  [class.user]="msg.from === 'user'">
+                  <span>{{ msg.text }}</span>
+                </div>
+                <div class="chat-bubble bot typing" *ngIf="isTyping">
+                  <span></span><span></span><span></span>
+                </div>
               </div>
 
-              <div class="form-row">
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Email Address</mat-label>
-                  <input matInput type="email" formControlName="email" placeholder="your.email@example.com">
-                  <mat-icon matSuffix>email</mat-icon>
-                  <mat-error>{{ getFieldError('email') }}</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="form-row">
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Subject</mat-label>
-                  <input matInput formControlName="subject" placeholder="What's this about?">
-                  <mat-icon matSuffix>subject</mat-icon>
-                  <mat-error>{{ getFieldError('subject') }}</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="form-row">
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Message</mat-label>
-                  <textarea 
-                    matInput 
-                    formControlName="message" 
-                    rows="6" 
-                    placeholder="Tell me about your project or opportunity..."></textarea>
-                  <mat-icon matSuffix>message</mat-icon>
-                  <mat-error>{{ getFieldError('message') }}</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="form-actions">
-                <button 
-                  mat-raised-button 
-                  color="primary" 
+              <form class="chat-composer" (ngSubmit)="sendDraft()">
+                <input
+                  type="text"
+                  [(ngModel)]="draft"
+                  name="draft"
+                  [placeholder]="placeholder"
+                  [disabled]="canSendEmail || isTyping"
+                  autocomplete="off" />
+                <button
+                  mat-mini-fab
+                  color="primary"
                   type="submit"
-                  class="submit-btn"
-                  [disabled]="isSubmitting">
-                  <mat-icon *ngIf="!isSubmitting">send</mat-icon>
-                  <mat-icon *ngIf="isSubmitting" class="spinning">refresh</mat-icon>
-                  {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                  class="magnetic"
+                  [disabled]="!draft.trim() || canSendEmail || isTyping"
+                  aria-label="Send reply">
+                  <mat-icon>send</mat-icon>
+                </button>
+              </form>
+
+              <div class="chat-actions">
+                <button mat-stroked-button type="button" class="magnetic" (click)="resetChat()">
+                  <mat-icon>refresh</mat-icon>
+                  Restart chat
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  class="magnetic mail-btn"
+                  [disabled]="!canSendEmail"
+                  (click)="openMailClient()">
+                  <mat-icon>email</mat-icon>
+                  Open email draft
                 </button>
               </div>
-            </form>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>
     </div>
 
-    <!-- Call to Action -->
     <div class="cta-section" [@slideInUp]="visible">
       <div class="cta-content">
         <h3>Ready to start a project?</h3>
         <p>Let's discuss your ideas and turn them into reality</p>
-        <button mat-raised-button color="primary" class="cta-btn" (click)="openContactLink('mailto:akkeshriaditya@gmail.com')">
+        <button
+          mat-raised-button
+          color="primary"
+          class="cta-btn magnetic"
+          (click)="openContactLink('mailto:akkeshriaditya@gmail.com')">
           <mat-icon>email</mat-icon>
           Start a Conversation
         </button>

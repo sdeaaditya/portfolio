@@ -21,7 +21,7 @@ export class HeaderComponent {
     { label: 'Education', anchor: 'education', icon: 'school' },
     { label: 'Projects', anchor: 'projects', icon: 'work' },
     { label: 'Experience', anchor: 'experience', icon: 'business_center' },
-    { label: 'Alchemist', anchor: 'alchemist-demo', icon: 'auto_awesome' },
+    // { label: 'Alchemist', anchor: 'alchemist-demo', icon: 'auto_awesome' },
     { label: 'Skills', anchor: 'tech-stack', icon: 'code' },
     { label: 'Contact', anchor: 'contact', icon: 'contact_mail' }
   ];
