@@ -533,11 +533,6 @@
   50% { filter: brightness(1.35); }
 }
 
-@keyframes bootLoad {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(320%); }
-}
-
 @keyframes dashIn {
   from {
     opacity: 0;
