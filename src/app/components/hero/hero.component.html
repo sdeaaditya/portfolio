@@ -164,7 +164,19 @@
     <!-- Text Content -->
     <div class="hero-text">
       <p class="greeting visible">Hello, I'm</p>
-      <h1 class="name visible">ADITYA KESHRI</h1>
+      <h1
+        class="name visible interactive-name"
+        [class.hovered]="nameHovered"
+        (mouseenter)="onNameEnter()"
+        (mouseleave)="onNameLeave()"
+        aria-label="Aditya Keshri">
+        <span
+          class="name-letter"
+          *ngFor="let item of nameChars; let i = index"
+          [class.space]="item.space"
+          [style.animation-delay.ms]="i * 70"
+          (mouseenter)="bounceLetter($event)">{{ item.char }}</span>
+      </h1>
       <h2 class="role visible">Senior Software Developer</h2>
       <p class="tagline visible">
         Experienced full-stack developer specializing in modern web technologies. 

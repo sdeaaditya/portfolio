@@ -322,6 +322,44 @@
   }
 }
 
+.provider-picker {
+  margin-top: 0.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  background: rgba(0, 212, 255, 0.06);
+
+  p {
+    margin: 0 0 0.7rem;
+    color: #b8c4d8;
+    font-size: 0.9rem;
+  }
+}
+
+.provider-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+
+  .provider-btn {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.cta-content {
+  .secondary-cta {
+    margin-left: 0.75rem;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.25);
+
+    @media (max-width: 600px) {
+      margin-left: 0;
+      margin-top: 0.75rem;
+    }
+  }
+}
+
 .contact-form {
   .form-row {
     margin-bottom: 1rem;

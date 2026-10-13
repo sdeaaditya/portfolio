@@ -19,6 +19,9 @@ export class HeroComponent implements OnInit {
   textVisible = true;
   typedCommands: string[] = [];
   isTyping = false;
+  displayName = 'ADITYA KESHRI';
+  nameChars: { char: string; space: boolean }[] = [];
+  nameHovered = false;
 
   keys = Array(48).fill(0);
   
@@ -47,6 +50,26 @@ export class HeroComponent implements OnInit {
 
   ngOnInit() {
     this.animationState = 'in';
+    this.nameChars = this.displayName.split('').map(char => ({
+      char: char === ' ' ? '\u00A0' : char,
+      space: char === ' '
+    }));
+  }
+
+  onNameEnter() {
+    this.nameHovered = true;
+  }
+
+  onNameLeave() {
+    this.nameHovered = false;
+  }
+
+  bounceLetter(event: MouseEvent) {
+    const target = event.currentTarget as HTMLElement;
+    target.classList.remove('letter-pop');
+    // Force reflow so animation can replay
+    void target.offsetWidth;
+    target.classList.add('letter-pop');
   }
 
   downloadResume() {

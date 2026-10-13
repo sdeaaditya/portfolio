@@ -206,23 +206,56 @@ export class ContactComponent implements OnInit {
     this.replyForField(next);
   }
 
+  mailProviders = [
+    { id: 'gmail', label: 'Gmail', icon: 'mail' },
+    { id: 'outlook', label: 'Outlook', icon: 'desktop_windows' },
+    { id: 'yahoo', label: 'Yahoo', icon: 'alternate_email' }
+  ] as const;
+
+  showMailProviders = false;
+
   openMailClient() {
     if (!this.canSendEmail) {
       return;
     }
+    this.showMailProviders = true;
+    this.pushBot('Choose your webmail — it opens in this browser (Gmail, Outlook, or Yahoo).');
+  }
 
-    const subject = encodeURIComponent(
-      `[Portfolio] ${this.collected.subject} — ${this.collected.name}`
-    );
-    const body = encodeURIComponent(
-      `Hi Aditya,\n\n${this.collected.message}\n\n—\nFrom: ${this.collected.name}\nEmail: ${this.collected.email}\nSent via portfolio contact chatbot`
-    );
+  openWebMail(provider: 'gmail' | 'outlook' | 'yahoo') {
+    const hasChatDraft = !!(this.collected.name && this.collected.subject && this.collected.message);
+    const subject = hasChatDraft
+      ? `[Portfolio] ${this.collected.subject} — ${this.collected.name}`
+      : 'Hello from your portfolio';
+    const body = hasChatDraft
+      ? `Hi Aditya,\n\n${this.collected.message}\n\n—\nFrom: ${this.collected.name}\nEmail: ${this.collected.email}\nSent via portfolio contact chatbot`
+      : 'Hi Aditya,\n\n';
 
-    window.location.href = `mailto:${this.emailTo}?subject=${subject}&body=${body}`;
-    this.snackBar.open('Opening your email app with the draft…', 'Close', {
+    const url = this.buildWebMailUrl(provider, subject, body);
+    window.open(url, '_blank', 'noopener,noreferrer');
+    this.snackBar.open(`Opening ${provider} compose in your browser…`, 'Close', {
       duration: 4000,
       panelClass: ['success-snackbar']
     });
+  }
+
+  private buildWebMailUrl(
+    provider: 'gmail' | 'outlook' | 'yahoo',
+    subject: string,
+    body: string
+  ): string {
+    const to = encodeURIComponent(this.emailTo);
+    const su = encodeURIComponent(subject);
+    const bd = encodeURIComponent(body);
+
+    switch (provider) {
+      case 'gmail':
+        return `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}&body=${bd}`;
+      case 'outlook':
+        return `https://outlook.live.com/mail/0/deeplink/compose?to=${to}&subject=${su}&body=${bd}`;
+      case 'yahoo':
+        return `https://compose.mail.yahoo.com/?to=${to}&subject=${su}&body=${bd}`;
+    }
   }
 
   resetChat(announce = true) {
@@ -230,8 +263,9 @@ export class ContactComponent implements OnInit {
     this.currentField = 'name';
     this.draft = '';
     this.messages = [];
+    this.showMailProviders = false;
     this.pushBot(
-      "Hi! I'm Aditya's contact assistant. I'll collect a few details and open an email draft to akkeshriaditya@gmail.com."
+      "Hi! I'm Aditya's contact assistant. I'll collect a few details, then open a webmail compose window in your browser."
     );
     this.pushBot("What's your name?");
     if (announce) {
@@ -261,8 +295,9 @@ export class ContactComponent implements OnInit {
         this.pushBot('Great. Tell me your message or opportunity details.');
       } else {
         this.pushBot(
-          `Perfect. I have everything. Tap “Open email draft” and I’ll start a mail to ${this.emailTo}.`
+          `Perfect. I have everything. Tap “Compose in browser”, then pick Gmail, Outlook, or Yahoo — it opens a draft to ${this.emailTo} in a new tab.`
         );
+        this.showMailProviders = true;
       }
       this.scrollChat();
     }, 450);

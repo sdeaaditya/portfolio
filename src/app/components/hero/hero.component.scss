@@ -687,16 +687,45 @@
     color: #ffffff;
     margin: 0;
     line-height: 1.1;
-    background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     opacity: 1;
     transform: translateY(0);
 
     &.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    &.interactive-name {
+      display: flex;
+      flex-wrap: wrap;
+      cursor: default;
+      user-select: none;
+    }
+
+    .name-letter {
+      display: inline-block;
+      background: linear-gradient(120deg, #ffffff 0%, #00d4ff 35%, #667eea 70%, #ffffff 100%);
+      background-size: 220% 220%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: nameWaveIn 0.7s ease both, nameShine 4.5s linear infinite;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      will-change: transform;
+
+      &.space {
+        width: 0.35em;
+      }
+
+      &:hover,
+      &.letter-pop {
+        animation: nameShine 4.5s linear infinite, letterPop 0.45s ease;
+        filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.55));
+      }
+    }
+
+    &.hovered .name-letter:not(.space) {
+      animation: nameShine 4.5s linear infinite, nameFloat 1.8s ease-in-out infinite;
     }
 
     @media (max-width: 768px) {
@@ -707,7 +736,36 @@
       font-size: clamp(1.8rem, 12vw, 3rem);
     }
   }
+}
 
+@keyframes nameWaveIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes nameShine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes letterPop {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(-12px) scale(1.18); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes nameFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.hero-text {
   .role {
     font-size: clamp(1.1rem, 4vw, 2rem);
     color: #a0a0a0;

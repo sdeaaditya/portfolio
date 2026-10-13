@@ -100,9 +100,24 @@
                   class="magnetic mail-btn"
                   [disabled]="!canSendEmail"
                   (click)="openMailClient()">
-                  <mat-icon>email</mat-icon>
-                  Open email draft
+                  <mat-icon>open_in_browser</mat-icon>
+                  Compose in browser
                 </button>
+              </div>
+
+              <div class="provider-picker" *ngIf="canSendEmail && showMailProviders">
+                <p>Open draft with:</p>
+                <div class="provider-buttons">
+                  <button
+                    mat-stroked-button
+                    type="button"
+                    class="magnetic provider-btn"
+                    *ngFor="let provider of mailProviders"
+                    (click)="openWebMail(provider.id)">
+                    <mat-icon>{{ provider.icon }}</mat-icon>
+                    {{ provider.label }}
+                  </button>
+                </div>
               </div>
             </div>
           </mat-card-content>
@@ -118,9 +133,16 @@
           mat-raised-button
           color="primary"
           class="cta-btn magnetic"
-          (click)="openContactLink('mailto:akkeshriaditya@gmail.com')">
-          <mat-icon>email</mat-icon>
-          Start a Conversation
+          (click)="openWebMail('gmail')">
+          <mat-icon>open_in_browser</mat-icon>
+          Start in Gmail
+        </button>
+        <button
+          mat-stroked-button
+          class="cta-btn magnetic secondary-cta"
+          (click)="openWebMail('outlook')">
+          <mat-icon>desktop_windows</mat-icon>
+          Start in Outlook
         </button>
       </div>
     </div>
