@@ -9,10 +9,9 @@
     <div class="code-rain"></div>
   </div>
 
-  <!-- Corner Animations for Senior Developer -->
-  <div class="corner-animations">
-    <!-- Top Left Corner -->
-    <div class="corner-element top-left">
+  <div class="hero-layout">
+    <!-- Dedicated left rail: car chase stays visible -->
+    <aside class="hero-rail" aria-hidden="true">
       <div class="highway-scene">
         <div class="highway">
           <div class="road-lines">
@@ -23,14 +22,12 @@
             <div class="line"></div>
           </div>
         </div>
-        <!-- Red Car -->
         <div class="car red-car">
           <div class="car-body">
             <div class="car-roof"></div>
             <div class="car-windows"></div>
           </div>
         </div>
-        <!-- Police Car -->
         <div class="car police-car">
           <div class="car-body">
             <div class="car-roof"></div>
@@ -42,20 +39,14 @@
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Top Right Corner - Removed -->
-    
-    <!-- Bottom Left Corner -->
-    <div class="corner-element bottom-left">
       <div class="status-indicator">
         <div class="status-dot active"></div>
         <span class="status-text">Online</span>
       </div>
-    </div>
-    
-    <!-- Above Monitor Stats -->
-    <div class="corner-element above-monitor">
+    </aside>
+
+    <!-- Centered monitor column -->
+    <div class="hero-stage">
       <div class="code-stats">
         <div class="stat-item">
           <span class="stat-label">Experience</span>
@@ -66,147 +57,142 @@
           <span class="stat-label">Worked on</span>
           <span class="stat-number">20+</span>
           <span class="stat-label">Projects</span>
-          
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="hero-content">
-    <div class="monitor-container">
-      <div
-        class="monitor"
-        [class.active]="laptopOpened"
-        [class.powered]="screenPowered"
-        [style.transform]="'perspective(1200px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)'"
-        (mousemove)="onMonitorMove($event)"
-        (mouseleave)="onMonitorLeave()">
+      <div class="monitor-container">
+        <div
+          class="monitor"
+          [class.active]="laptopOpened"
+          [class.powered]="screenPowered"
+          [style.transform]="'perspective(1200px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)'"
+          (mousemove)="onMonitorMove($event)"
+          (mouseleave)="onMonitorLeave()">
 
-        <div class="monitor-frame">
-          <div
-            class="screen-viewport"
-            (click)="onMonitorClick()"
-            role="button"
-            tabindex="0"
-            [attr.aria-label]="'Interactive screen, ' + screenMode + ' mode. Click to switch.'"
-            (keydown.enter)="onMonitorClick()"
-            (keydown.space)="$event.preventDefault(); onMonitorClick()">
-
-            <div class="os-bar" *ngIf="screenPowered">
-              <span class="os-dot"></span>
-              <span class="os-title">sdeaaditya — {{ screenMode }}</span>
-              <span class="os-clock">{{ clockLabel }}</span>
-            </div>
-
-            <div class="screen-off" *ngIf="!screenPowered">
-              <span>Display off</span>
-              <small>Tap the LED to power on</small>
-            </div>
-
-            <div class="hologram-container" [class.active]="hologramActive && screenPowered">
-              <div class="hologram-rings">
-                <div class="ring ring-1"></div>
-                <div class="ring ring-2"></div>
-                <div class="ring ring-4">
-                  <svg viewBox="0 0 280 280" aria-hidden="true">
-                    <defs>
-                      <path id="circle-path" d="M 140, 140 m -110, 0 a 110,110 0 1,1 220,0 a 110,110 0 1,1 -220,0"/>
-                    </defs>
-                    <text class="curved-path-text" fill="white">
-                      <textPath href="#circle-path" startOffset="0%">
-                        SENIOR • SOFTWARE • DEVELOPER •
-                      </textPath>
-                    </text>
-                  </svg>
-                </div>
-              </div>
-
-              <div class="profile-hologram" [class.visible]="profileVisible">
-                <div class="profile-image">
-                  <img src="assets/images/Aditya_Photo.png"
-                       alt="Aditya Keshri" class="dev-photo">
-                  <div class="hologram-overlay"></div>
-                  <div class="scan-lines"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="terminal-effect" [class.active]="terminalActive && screenPowered">
-              <div class="terminal-header">
-                <div class="terminal-buttons">
-                  <span class="btn-close"></span>
-                  <span class="btn-minimize"></span>
-                  <span class="btn-maximize"></span>
-                </div>
-                <span class="terminal-title">sdeaaditya@portfolio:~$</span>
-              </div>
-              <div class="terminal-body">
-                <div class="command-line" *ngFor="let cmd of typedCommands; let i = index">
-                  <span class="prompt">$</span>
-                  <span class="command">{{ cmd }}</span>
-                  <span class="cursor" *ngIf="isTyping && i === typedCommands.length - 1">▋</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-effect" [class.active]="dashboardActive && screenPowered">
-              <div class="dash-grid">
-                <div class="dash-card" *ngFor="let stat of dashboardStats">
-                  <span class="dash-label">{{ stat.label }}</span>
-                  <span class="dash-value">{{ stat.value }}</span>
-                  <span class="dash-unit">{{ stat.unit }}</span>
-                </div>
-              </div>
-              <div class="dash-tech">
-                <span *ngFor="let tech of mainTechs">{{ tech.name }}</span>
-              </div>
-            </div>
-
+          <div class="monitor-frame">
             <div
-              class="screen-glare"
-              [style.background]="'radial-gradient(circle at ' + glareX + '% ' + glareY + '%, rgba(255,255,255,0.16), transparent 45%)'">
-            </div>
-            <div class="screen-scan"></div>
+              class="screen-viewport"
+              (click)="onMonitorClick()"
+              role="button"
+              tabindex="0"
+              [attr.aria-label]="'Interactive screen, ' + screenMode + ' mode. Click to switch.'"
+              (keydown.enter)="onMonitorClick()"
+              (keydown.space)="$event.preventDefault(); onMonitorClick()">
 
-            <div class="interact-hint" *ngIf="screenPowered">
-              Click to switch views
+              <div class="os-bar" *ngIf="screenPowered">
+                <span class="os-dot"></span>
+                <span class="os-title">sdeaaditya — {{ screenMode }}</span>
+                <span class="os-clock">{{ clockLabel }}</span>
+              </div>
+
+              <div class="screen-off" *ngIf="!screenPowered">
+                <span>Display off</span>
+                <small>Tap the LED to power on</small>
+              </div>
+
+              <div class="hologram-container" [class.active]="hologramActive && screenPowered">
+                <div class="hologram-rings">
+                  <div class="ring ring-1"></div>
+                  <div class="ring ring-2"></div>
+                  <div class="ring ring-4">
+                    <svg viewBox="0 0 280 280" aria-hidden="true">
+                      <defs>
+                        <path id="circle-path" d="M 140, 140 m -110, 0 a 110,110 0 1,1 220,0 a 110,110 0 1,1 -220,0"/>
+                      </defs>
+                      <text class="curved-path-text" fill="white">
+                        <textPath href="#circle-path" startOffset="0%">
+                          SENIOR • SOFTWARE • DEVELOPER •
+                        </textPath>
+                      </text>
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="profile-hologram" [class.visible]="profileVisible">
+                  <div class="profile-image">
+                    <img src="assets/images/Aditya_Photo.png"
+                         alt="Aditya Keshri" class="dev-photo">
+                    <div class="hologram-overlay"></div>
+                    <div class="scan-lines"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="terminal-effect" [class.active]="terminalActive && screenPowered">
+                <div class="terminal-header">
+                  <div class="terminal-buttons">
+                    <span class="btn-close"></span>
+                    <span class="btn-minimize"></span>
+                    <span class="btn-maximize"></span>
+                  </div>
+                  <span class="terminal-title">sdeaaditya@portfolio:~$</span>
+                </div>
+                <div class="terminal-body">
+                  <div class="command-line" *ngFor="let cmd of typedCommands; let i = index">
+                    <span class="prompt">$</span>
+                    <span class="command">{{ cmd }}</span>
+                    <span class="cursor" *ngIf="isTyping && i === typedCommands.length - 1">▋</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dashboard-effect" [class.active]="dashboardActive && screenPowered">
+                <div class="dash-grid">
+                  <div class="dash-card" *ngFor="let stat of dashboardStats">
+                    <span class="dash-label">{{ stat.label }}</span>
+                    <span class="dash-value">{{ stat.value }}</span>
+                    <span class="dash-unit">{{ stat.unit }}</span>
+                  </div>
+                </div>
+                <div class="dash-tech">
+                  <span *ngFor="let tech of mainTechs">{{ tech.name }}</span>
+                </div>
+              </div>
+
+              <div
+                class="screen-glare"
+                [style.background]="'radial-gradient(circle at ' + glareX + '% ' + glareY + '%, rgba(255,255,255,0.16), transparent 45%)'">
+              </div>
+              <div class="screen-scan"></div>
+
+              <div class="interact-hint" *ngIf="screenPowered">
+                Click to switch views
+              </div>
+            </div>
+
+            <div class="monitor-chin">
+              <button
+                type="button"
+                class="power-led"
+                [class.on]="screenPowered"
+                (click)="togglePower($event)"
+                [attr.aria-label]="screenPowered ? 'Turn display off' : 'Turn display on'">
+              </button>
             </div>
           </div>
 
-          <div class="monitor-chin">
+          <div class="monitor-stand">
+            <div class="stand-neck"></div>
+            <div class="stand-base"></div>
+          </div>
+
+          <div class="mode-dock" *ngIf="screenPowered">
             <button
               type="button"
-              class="power-led"
-              [class.on]="screenPowered"
-              (click)="togglePower($event)"
-              [attr.aria-label]="screenPowered ? 'Turn display off' : 'Turn display on'">
+              class="mode-btn"
+              *ngFor="let mode of modes"
+              [class.active]="screenMode === mode.id"
+              (click)="setMode(mode.id, $event)"
+              [attr.aria-label]="mode.label">
+              <mat-icon>{{ mode.icon }}</mat-icon>
+              <span>{{ mode.label }}</span>
             </button>
           </div>
         </div>
-
-        <div class="monitor-stand">
-          <div class="stand-neck"></div>
-          <div class="stand-base"></div>
-        </div>
-
-        <div class="mode-dock" *ngIf="screenPowered">
-          <button
-            type="button"
-            class="mode-btn"
-            *ngFor="let mode of modes"
-            [class.active]="screenMode === mode.id"
-            (click)="setMode(mode.id, $event)"
-            [attr.aria-label]="mode.label">
-            <mat-icon>{{ mode.icon }}</mat-icon>
-            <span>{{ mode.label }}</span>
-          </button>
-        </div>
       </div>
     </div>
 
-
-
-    <!-- Text Content -->
+    <!-- Intro copy -->
     <div class="hero-text">
       <p class="greeting visible">Hello, I'm</p>
       <h1
@@ -225,11 +211,10 @@
       </h1>
       <h2 class="role visible">Senior Software Developer</h2>
       <p class="tagline visible">
-        Experienced full-stack developer specializing in modern web technologies. 
+        Experienced full-stack developer specializing in modern web technologies.
         Passionate about building efficient, scalable applications and solving complex technical challenges.
       </p>
-      
-      <!-- Tech Stack Icons -->
+
       <div class="tech-icons visible">
         <div class="tech-icon" *ngFor="let tech of mainTechs">
           <span>{{ tech.icon }}</span>
@@ -237,19 +222,18 @@
         </div>
       </div>
 
-      <!-- Action Buttons under Tech Stack -->
       <div class="hero-actions visible">
-        <button 
-          mat-raised-button 
-          color="primary" 
+        <button
+          mat-raised-button
+          color="primary"
           class="cta-primary magnetic"
           (click)="downloadResume()">
           <mat-icon>download</mat-icon>
           Download Resume
         </button>
-        
-        <button 
-          mat-stroked-button 
+
+        <button
+          mat-stroked-button
           class="cta-secondary magnetic"
           (click)="scrollToContact()">
           <mat-icon>email</mat-icon>
@@ -257,12 +241,12 @@
         </button>
       </div>
     </div>
+  </div>
 
-    <div class="hero-scroll">
-      <div class="scroll-indicator visible">
-        <span>Scroll Down</span>
-        <mat-icon>keyboard_arrow_down</mat-icon>
-      </div>
+  <div class="hero-scroll">
+    <div class="scroll-indicator visible">
+      <span>Scroll Down</span>
+      <mat-icon>keyboard_arrow_down</mat-icon>
     </div>
   </div>
 </section>

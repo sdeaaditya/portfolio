@@ -3,29 +3,37 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   position: relative;
   background: transparent;
   overflow: hidden;
-  padding: 60px 2rem 0 2rem;
-
-  @media (min-width: 1025px) {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    align-items: center;
-    gap: 2rem;
-    padding: 60px 2rem 0 2rem;
-  }
-
-  @media (max-width: 1024px) {
-    padding: 80px 1rem 2rem 1rem;
-    text-align: center;
-    gap: 2rem;
-  }
+  padding: 88px 1.5rem 2rem;
 
   @media (max-width: 768px) {
-    padding: 80px 1rem 2rem 1rem;
+    padding: 80px 1rem 1.5rem;
     min-height: calc(100vh - 60px);
+  }
+}
+
+.hero-layout {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 72px minmax(260px, 1fr) minmax(280px, 1.05fr);
+  align-items: center;
+  gap: 1.25rem 1.75rem;
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 56px 1fr;
+    grid-template-rows: auto auto;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 48px 1fr;
+    gap: 1rem;
   }
 }
 
@@ -135,36 +143,36 @@
   /* animation: matrix-rain 10s linear infinite; */ /* Removed for static design */
 }
 
-.hero-content {
-  width: 100%;
-  max-width: 1200px;
+.hero-rail {
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 2;
+  justify-content: space-between;
+  height: min(520px, 70vh);
+  min-height: 360px;
   position: relative;
-  padding-left: 100px;
-
-  @media (min-width: 1025px) {
-    display: contents;
-    padding-left: 100px;
-  }
+  z-index: 3;
+  grid-row: 1 / span 1;
 
   @media (max-width: 1024px) {
-    gap: 3rem;
-    padding-left: 90px;
+    grid-row: 1 / span 2;
+    height: 100%;
+    min-height: 420px;
   }
-  
-  @media (max-width: 768px) {
-    padding-left: 80px;
-  }
-  
-  @media (max-width: 480px) {
-    padding-left: 70px;
-  }
+}
 
-  @media (max-width: 768px) {
-    gap: 2rem;
+.hero-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  min-width: 0;
+
+  @media (max-width: 1024px) {
+    grid-column: 2;
+    grid-row: 1;
   }
 }
 
@@ -172,32 +180,74 @@
 .monitor-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   z-index: 2;
   position: relative;
   width: 100%;
-  max-width: 540px;
-  padding-top: 48px;
-  padding-bottom: 28px;
-
-  @media (min-width: 1025px) {
-    max-width: 560px;
-    padding-top: 36px;
-  }
-
-  @media (max-width: 1024px) {
-    order: 1;
-    margin-bottom: 1.5rem;
-    max-width: 460px;
-  }
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0;
 
   @media (max-width: 768px) {
-    max-width: 380px;
-    padding-top: 28px;
+    max-width: 340px;
   }
 
   @media (max-width: 480px) {
-    max-width: 300px;
+    max-width: 280px;
+  }
+}
+
+.code-stats {
+  display: flex;
+  gap: 0.85rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 420px;
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(15, 15, 23, 0.9);
+    padding: 0.65rem 0.85rem;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    backdrop-filter: blur(10px);
+    animation: float-stats 3s ease-in-out infinite;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 0.5s; }
+
+    &:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+    }
+
+    .stat-number {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.55rem;
+
+    .stat-item {
+      padding: 0.5rem 0.65rem;
+
+      .stat-number { font-size: 1rem; }
+      .stat-label { font-size: 0.55rem; }
+    }
   }
 }
 
@@ -893,28 +943,21 @@
   z-index: 2;
   position: relative;
   width: 100%;
-  max-width: 600px;
-  padding-top: 20px;
-
-  @media (min-width: 1025px) {
-    max-width: none;
-    width: auto;
-    padding-top: 40px;
-  }
+  max-width: 560px;
+  min-width: 0;
+  padding-top: 0;
+  justify-self: start;
 
   @media (max-width: 1024px) {
-    order: 2;
-    text-align: center;
-    padding-top: 20px;
-  }
-
-  @media (max-width: 768px) {
+    grid-column: 2;
+    grid-row: 2;
     max-width: 100%;
-    padding-top: 10px;
+    text-align: center;
+    justify-self: center;
   }
 
   @media (max-width: 480px) {
-    padding-top: 0px;
+    padding-top: 0;
   }
 
   .greeting {
@@ -1564,379 +1607,176 @@
 
 }
 
-// Corner Animations
-.corner-animations {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 1;
-}
+// Left rail: highway + cars (never under the monitor)
+.hero-rail {
+  .highway-scene {
+    position: relative;
+    width: 56px;
+    flex: 1;
+    min-height: 0;
+  }
 
-.corner-element {
-  position: absolute;
-  color: #667eea;
-  font-family: 'Fira Code', 'Monaco', 'Menlo', monospace;
-  
-  &.top-left {
-    top: 0;
-    left: 0;
-    width: 80px;
-    height: calc(100vh - 90px); /* Extend closer to Online button */
-    
-    .highway-scene {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      
-      .highway {
-        width: 60px;
-        height: 100%;
-        background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
-        border: 3px solid #444;
-        border-radius: 8px; /* Straight corners instead of curved */
-        position: relative;
-        overflow: hidden;
-        margin: 0 auto;
-        
-        .road-lines {
-          position: absolute;
-          width: 100%;
-          height: 200%;
-          top: 0;
-          left: 0;
-          
-          .line {
-            width: 3px;
-            height: 40px;
-            background: #667eea;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-            animation: road-lines 2s linear infinite;
-            
-            &:nth-child(1) { animation-delay: 0s; }
-            &:nth-child(2) { animation-delay: 0.4s; }
-            &:nth-child(3) { animation-delay: 0.8s; }
-            &:nth-child(4) { animation-delay: 1.2s; }
-            &:nth-child(5) { animation-delay: 1.6s; }
-          }
-        }
-      }
-      
-      .car {
+  .highway {
+    width: 48px;
+    height: 100%;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 3px solid #444;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+
+    .road-lines {
+      position: absolute;
+      inset: 0;
+      height: 200%;
+
+      .line {
+        width: 3px;
+        height: 40px;
+        background: #667eea;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        z-index: 2;
-        filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
-        
-        .car-body {
-          width: 24px;
-          height: 40px;
-          border-radius: 8px 8px 6px 6px;
-          position: relative;
-          
-          .car-roof {
-            width: 16px;
-            height: 20px;
-            border-radius: 6px 6px 2px 2px;
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-          }
-          
-          .car-windows {
-            width: 12px;
-            height: 6px;
-            background: rgba(52, 152, 219, 0.3);
-            border-radius: 2px;
-            position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 1px solid rgba(31, 119, 178, 0.5);
-          }
-        }
-        
-        // Red Car Styling
-        &.red-car {
-          top: -60px;
-          animation: car-drive-down 6s linear infinite;
-          animation-delay: 0s;
-          
-          .car-body {
-            background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
-            border: 1px solid #a93226;
-            
-            .car-roof {
-              background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
-              border: 1px solid #1a252f;
-            }
-          }
-        }
-        
-        // Police Car Styling
-        &.police-car {
-          top: -60px;
-          animation: car-drive-down 6s linear infinite;
-          animation-delay: 1.5s;
-          
-          .car-body {
-            background: linear-gradient(180deg, #ffffff 0%, #ecf0f1 100%);
-            border: 1px solid #bdc3c7;
-            
-            .car-roof {
-              background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
-              border: 1px solid #1a252f;
-            }
-            
-            .police-lights {
-              position: absolute;
-              top: 2px;
-              left: 50%;
-              transform: translateX(-50%);
-              display: flex;
-              gap: 2px;
-              
-              .light {
-                width: 4px;
-                height: 4px;
-                border-radius: 50%;
-                
-                &.red-light {
-                  background: #e74c3c;
-                  animation: police-light-red 1s infinite alternate;
-                }
-                
-                &.blue-light {
-                  background: #3498db;
-                  animation: police-light-blue 1s infinite alternate;
-                  animation-delay: 0.5s;
-                }
-              }
-            }
-          }
-        }
-        
-        @media (max-width: 768px) {
-          .car-body {
-            width: 20px;
-            height: 32px;
-            
-            .car-roof {
-              width: 14px;
-              height: 16px;
-            }
-            
-            .car-windows {
-              width: 10px;
-              height: 5px;
-            }
-            
-            .police-lights .light {
-              width: 3px;
-              height: 3px;
-            }
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .car-body {
-            width: 16px;
-            height: 28px;
-            
-            .car-roof {
-              width: 12px;
-              height: 14px;
-            }
-            
-            .car-windows {
-              width: 8px;
-              height: 4px;
-            }
-            
-            .police-lights .light {
-              width: 2px;
-              height: 2px;
-            }
-          }
-        }
-      }
-    }
-  }
-  
+        border-radius: 2px;
+        animation: road-lines 2s linear infinite;
 
-  
-  &.bottom-left {
-    bottom: 20px;
-    left: 20px;
-    
-    .status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(15, 15, 23, 0.8);
-      padding: 0.5rem 1rem;
-      border-radius: 25px;
-      border: 1px solid rgba(102, 126, 234, 0.3);
-      backdrop-filter: blur(10px);
-      
-      .status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #4ade80;
-        animation: pulse-green 2s infinite;
-        
-        &.active {
-          box-shadow: 0 0 10px #4ade80;
-        }
-      }
-      
-      .status-text {
-        font-size: 0.85rem;
-        color: #4ade80;
-        font-weight: 500;
+        &:nth-child(1) { animation-delay: 0s; }
+        &:nth-child(2) { animation-delay: 0.4s; }
+        &:nth-child(3) { animation-delay: 0.8s; }
+        &:nth-child(4) { animation-delay: 1.2s; }
+        &:nth-child(5) { animation-delay: 1.6s; }
       }
     }
   }
-  
-  &.above-monitor {
-    top: 12%;
-    left: 25%; /* Position to left side */
-    transform: translateX(0); /* No transform needed for left alignment */
-    z-index: 3;
-    
-    .code-stats {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: flex-start;
-      
-              .stat-item {
+
+  .car {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
+
+    .car-body {
+      width: 22px;
+      height: 36px;
+      border-radius: 8px 8px 6px 6px;
+      position: relative;
+
+      .car-roof {
+        width: 14px;
+        height: 18px;
+        border-radius: 6px 6px 2px 2px;
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .car-windows {
+        width: 11px;
+        height: 5px;
+        background: rgba(52, 152, 219, 0.35);
+        border-radius: 2px;
+        position: absolute;
+        top: 11px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid rgba(31, 119, 178, 0.5);
+      }
+    }
+
+    &.red-car {
+      top: -50px;
+      animation: car-drive-down 6s linear infinite;
+
+      .car-body {
+        background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+        border: 1px solid #a93226;
+
+        .car-roof {
+          background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+          border: 1px solid #1a252f;
+        }
+      }
+    }
+
+    &.police-car {
+      top: -50px;
+      animation: car-drive-down 6s linear infinite;
+      animation-delay: 1.5s;
+
+      .car-body {
+        background: linear-gradient(180deg, #ffffff 0%, #ecf0f1 100%);
+        border: 1px solid #bdc3c7;
+
+        .car-roof {
+          background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+          border: 1px solid #1a252f;
+        }
+
+        .police-lights {
+          position: absolute;
+          top: 2px;
+          left: 50%;
+          transform: translateX(-50%);
           display: flex;
-          flex-direction: column;
-          align-items: center;
-          background: rgba(15, 15, 23, 0.9);
-          padding: 0.8rem;
-          border-radius: 12px;
-          border: 1px solid rgba(102, 126, 234, 0.3);
-          backdrop-filter: blur(10px);
-          animation: float-stats 3s ease-in-out infinite;
-          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-          transition: all 0.3s ease;
-          
-          &:nth-child(1) {
-            animation-delay: 0s;
+          gap: 2px;
+
+          .light {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+
+            &.red-light {
+              background: #e74c3c;
+              animation: police-light-red 1s infinite alternate;
+            }
+
+            &.blue-light {
+              background: #3498db;
+              animation: police-light-blue 1s infinite alternate;
+              animation-delay: 0.5s;
+            }
           }
-          
-          &:nth-child(2) {
-            animation-delay: 0.5s;
-          }
-          
-          &:hover {
-            transform: translateY(-5px) scale(1.08);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-            border-color: rgba(102, 126, 234, 0.6);
-          }
-        
-        .stat-number {
-          font-size: 1.2rem;
-          font-weight: bold;
-          color: #667eea;
-        }
-        
-        .stat-label {
-          font-size: 0.7rem;
-          color: #94a3b8;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
         }
       }
     }
   }
-  
-  @media (max-width: 768px) {
-    &.top-left, &.top-right {
-      top: 70px;
-      
-      &.top-left {
-        height: calc(100vh - 120px); /* Extend for mobile */
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    background: rgba(15, 15, 23, 0.85);
+    padding: 0.4rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    backdrop-filter: blur(10px);
+    writing-mode: horizontal-tb;
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulse-green 2s infinite;
+
+      &.active {
+        box-shadow: 0 0 10px #4ade80;
       }
     }
-    
-    &.top-left, &.bottom-left {
-      left: 10px;
+
+    .status-text {
+      font-size: 0.72rem;
+      color: #4ade80;
+      font-weight: 500;
     }
-    
-    &.top-right, &.bottom-right {
-      right: 10px;
-    }
-    
-    &.bottom-left, &.bottom-right {
-      bottom: 10px;
-    }
-    
-    &.above-monitor {
-      top: 10%;
-      left: 20%; /* Left side positioning for mobile */
-      transform: translateX(0);
-      
-      .code-stats {
-        gap: 1rem;
-      }
-    }
-    
-    .code-bracket {
-      font-size: 1.5rem !important;
-    }
-    
-    .git-branch, .status-indicator {
-      padding: 0.4rem 0.8rem !important;
-      font-size: 0.8rem !important;
-    }
-    
-    .code-stats .stat-item {
-      padding: 0.6rem !important;
-      
-      .stat-number {
-        font-size: 1rem !important;
-      }
-      
-      .stat-label {
-        font-size: 0.6rem !important;
-      }
-    }
-  }
-  
-  @media (max-width: 480px) {
-    &.top-left {
-      height: calc(100vh - 150px); /* Extend for small mobile */
-    }
-    
-    &.above-monitor {
-      top: 8%;
-      left: 15%; /* Left side positioning for small mobile */
-      transform: translateX(0);
-      
-      .code-stats {
-        gap: 0.8rem;
-        
-        .stat-item {
-          padding: 0.5rem !important;
-          
-          .stat-number {
-            font-size: 0.9rem !important;
-          }
-          
-          .stat-label {
-            font-size: 0.55rem !important;
-          }
-        }
+
+    @media (max-width: 640px) {
+      .status-text {
+        display: none;
       }
     }
   }
@@ -1986,15 +1826,15 @@
 }
 
 @keyframes car-drive-down {
-  0% { 
-    top: -60px; 
+  0% {
+    top: -50px;
     opacity: 1;
   }
-  90% { 
+  90% {
     opacity: 1;
   }
-  100% { 
-    top: calc(100vh - 60px); 
+  100% {
+    top: calc(100% - 10px);
     opacity: 0;
   }
 }
