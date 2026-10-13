@@ -51,17 +51,17 @@ export class ExperienceComponent implements OnInit {
   experiences: Experience[] = [
     {
       id: 1,
-      company: 'Netlink Software Group',
+      company: 'Netlink Software Group (Client: ZS Associates)',
       position: 'Senior Software Developer',
       duration: 'Dec 2025 - Present',
       location: 'Remote / India',
-      description: 'As a Senior Software Developer at Netlink Software Group, I build enterprise backend platforms and GenAI-powered agents for life-science and product feedback use cases. I work across Python, FastAPI, React, cloud orchestration, and AI agent workflows to deliver production-ready solutions for client programs.',
+      description: 'Full-time Senior Software Developer employed by Netlink Software Group, deputed to client ZS Associates. Built enterprise platforms and AI agents for life-science and product-feedback use cases using Python, FastAPI, React, OpenAI SDK, AWS CloudWatch, Grafana, and cloud orchestration to deliver production-ready client solutions.',
       achievements: [
-        'Evidence Planner (Dec 2025 – Jun 2026): Built a portal to create and update medicine-related activities and publish new medicine data for stakeholders across planning and publication workflows',
-        'Alchemist AI Agent (Jun 2026 – Aug 2026): Developed an AI agent that tracks medicine sales across 133 territories; users upload PDF data, the agent extracts insights, and returns sales performance percentages with top-performing medicines',
-        'Feedback Agent (Aug 2026 – Present): Built an installable feedback agent that captures mouse interactions, supports screen recording, converses with users about bugs or feedback, and creates tickets on Jira, Confluence, or Azure DevOps boards based on the integrated tool'
+        'Evidence Planner for ZS Associates (Dec 2025 – Jun 2026): Built a portal to create and update medicine-related activities and publish new medicine data for stakeholders across planning and publication workflows',
+        'Alchemist AI Agent for ZS Associates (Jun 2026 – Aug 2026): Developed an AI agent that tracks medicine sales across 133 territories; users upload PDF data, the agent extracts insights via OpenAI SDK, and returns sales performance percentages with top-performing medicines',
+        'Feedback Agent for ZS Associates (Aug 2026 – Present): Built an installable feedback agent that captures mouse interactions, supports screen recording, converses with users about bugs or feedback, and creates tickets on Jira, Confluence, or Azure DevOps boards based on the integrated tool'
       ],
-      technologies: ['Python', 'FastAPI', 'React', 'GenAI', 'AWS', 'Docker', 'Airflow', 'PDF Parsing'],
+      technologies: ['Python', 'FastAPI', 'React', 'OpenAI SDK', 'AWS', 'CloudWatch', 'Grafana', 'Docker', 'Airflow', 'PDF Parsing'],
       logo: 'assets/images/Netlink.jpg',
       current: true
     },

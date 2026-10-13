@@ -71,7 +71,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Next.js',
       icon: '🌓',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 3,
       category: 'frontend',
       color: '#4fc08d'
@@ -105,7 +105,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Node.js',
       icon: '🟢',
-      experience: '3+ years',
+      experience: '4+ years',
       level: 4,
       category: 'backend',
       color: '#339933'
@@ -121,7 +121,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Express.js',
       icon: '🚀',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 4,
       category: 'backend',
       color: '#000000'
@@ -129,7 +129,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Flask',
       icon: '⚗️',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 3,
       category: 'backend',
       color: '#092e20'
@@ -137,7 +137,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Django',
       icon: '🎯',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 3,
       category: 'backend',
       color: '#092e20'
@@ -145,7 +145,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Java',
       icon: '☕',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 3,
       category: 'backend',
       color: '#ed8b00'
@@ -155,7 +155,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'MongoDB',
       icon: '🍃',
-      experience: '3+ years',
+      experience: '4+ years',
       level: 4,
       category: 'database',
       color: '#47a248'
@@ -163,7 +163,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'PostgreSQL',
       icon: '🐘',
-      experience: '3+ years',
+      experience: '4+ years',
       level: 4,
       category: 'database',
       color: '#336791'
@@ -189,7 +189,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Docker',
       icon: '🐳',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 4,
       category: 'tools',
       color: '#2496ed'
@@ -197,7 +197,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Kubernetes',
       icon: '🛳️',
-      experience: '3+ years',
+      experience: '4+ years',
       level: 4,
       category: 'tools',
       color: '#8dd6f9'
@@ -207,7 +207,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'AWS',
       icon: '☁️',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 3,
       category: 'cloud',
       color: '#ff9900'
@@ -215,7 +215,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Azure',
       icon: '🔷',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 4,
       category: 'cloud',
       color: '#ffca28'
@@ -223,7 +223,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Firebase',
       icon: '🔥',
-      experience: '2+ years',
+      experience: '3+ years',
       level: 4,
       category: 'cloud',
       color: '#ffca28'
@@ -233,15 +233,15 @@ export class TechStackComponent implements OnInit {
     {
       name: 'LLM Agents',
       icon: '🤖',
-      experience: '1+ years',
+      experience: '3+ years',
       level: 4,
       category: 'genai',
       color: '#10a37f'
     },
     {
-      name: 'OpenAI / GPT',
+      name: 'OpenAI SDK',
       icon: '🧠',
-      experience: '1+ years',
+      experience: '3+ years',
       level: 4,
       category: 'genai',
       color: '#412991'
@@ -249,7 +249,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'RAG / Embeddings',
       icon: '🔎',
-      experience: '1+ years',
+      experience: '3+ years',
       level: 3.5,
       category: 'genai',
       color: '#00bfa5'
@@ -257,7 +257,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'LangChain',
       icon: '🔗',
-      experience: '1+ years',
+      experience: '3+ years',
       level: 3.5,
       category: 'genai',
       color: '#1c3c3c'
@@ -265,7 +265,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Prompt Engineering',
       icon: '✍️',
-      experience: '1+ years',
+      experience: '3+ years',
       level: 4,
       category: 'genai',
       color: '#ff6b35'
@@ -273,7 +273,7 @@ export class TechStackComponent implements OnInit {
     {
       name: 'Document AI',
       icon: '📄',
-      experience: '1+ years',
+      experience: '3+ years',
       level: 4,
       category: 'genai',
       color: '#5c6bc0'
