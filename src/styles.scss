@@ -1,6 +1,15 @@
 /* Global Styles */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+:root {
+  --space-bg: #050816;
+  --space-deep: #0a1029;
+  --space-nebula: #1b1440;
+  --space-cyan: #4fd1ff;
+  --space-violet: #7c5cff;
+  --space-pink: #ff6ad5;
+}
 
 * {
   margin: 0;
@@ -13,8 +22,12 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #0f0f17;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(124, 92, 255, 0.22), transparent 55%),
+    radial-gradient(900px 500px at 90% 0%, rgba(79, 209, 255, 0.16), transparent 50%),
+    radial-gradient(800px 500px at 50% 100%, rgba(255, 106, 213, 0.1), transparent 55%),
+    linear-gradient(180deg, var(--space-bg), var(--space-deep) 45%, #070b1a);
   color: #ffffff;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -22,21 +35,26 @@ body {
   overflow-x: hidden;
 }
 
+h1, h2, h3, .section-title, .logo-text, .name {
+  font-family: 'Orbitron', 'Space Grotesk', sans-serif;
+  letter-spacing: 0.02em;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a2e;
+  background: #0c1230;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--space-cyan) 0%, var(--space-violet) 100%);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: linear-gradient(135deg, var(--space-violet) 0%, var(--space-pink) 100%);
 }
 
 /* Material Design Theme Overrides */

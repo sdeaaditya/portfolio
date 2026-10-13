@@ -16,8 +16,8 @@
             *ngFor="let social of socialLinks"
             (click)="openLink(social.url)"
             [attr.aria-label]="social.name"
-            class="social-btn">
-            <mat-icon>{{ social.icon }}</mat-icon>
+            class="social-btn magnetic">
+            <app-brand-icon [name]="social.icon"></app-brand-icon>
           </button>
         </div>
       </div>

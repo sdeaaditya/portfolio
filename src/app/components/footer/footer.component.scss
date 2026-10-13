@@ -76,15 +76,14 @@
       transition: all 0.3s ease;
 
       &:hover {
-        background: rgba(102, 126, 234, 0.2);
-        border-color: #667eea;
+        background: rgba(79, 209, 255, 0.18);
+        border-color: #4fd1ff;
         transform: translateY(-2px);
+        color: #fff;
       }
 
-      mat-icon {
+      app-brand-icon {
         font-size: 1.2rem;
-        width: 1.2rem;
-        height: 1.2rem;
       }
     }
   }

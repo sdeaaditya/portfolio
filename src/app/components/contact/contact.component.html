@@ -38,7 +38,7 @@
               [style.--social-color]="social.color"
               (click)="openSocialLink(social.url)"
               [attr.aria-label]="social.name">
-              <mat-icon>{{ social.icon }}</mat-icon>
+              <app-brand-icon [name]="social.icon"></app-brand-icon>
             </button>
           </div>
         </div>

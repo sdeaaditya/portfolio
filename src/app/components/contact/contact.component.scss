@@ -143,7 +143,7 @@
 
   .social-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 
     @media (max-width: 480px) {
@@ -152,7 +152,7 @@
   }
 
   .social-btn {
-    --social-color: #667eea;
+    --social-color: #7c5cff;
     
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
@@ -167,12 +167,11 @@
       border-color: var(--social-color);
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      color: #fff;
     }
 
-    mat-icon {
-      font-size: 1.5rem;
-      width: 1.5rem;
-      height: 1.5rem;
+    app-brand-icon {
+      font-size: 1.45rem;
     }
   }
 }

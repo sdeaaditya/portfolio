@@ -7,10 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
+import { BrandIconComponent, BrandIconName } from '../brand-icon/brand-icon.component';
+
 interface SocialLink {
   name: string;
   url: string;
-  icon: string;
+  icon: BrandIconName;
   color: string;
 }
 
@@ -37,7 +39,8 @@ interface ChatMessage {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    BrandIconComponent
   ],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
@@ -87,20 +90,26 @@ export class ContactComponent implements OnInit {
     {
       name: 'GitHub',
       url: 'https://github.com/sdeaaditya',
-      icon: 'code',
-      color: '#333333'
+      icon: 'github',
+      color: '#24292f'
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/sdeaditya',
-      icon: 'work',
-      color: '#0077b5'
+      icon: 'linkedin',
+      color: '#0a66c2'
     },
     {
       name: 'Twitter',
       url: 'https://twitter.com/keshriadityaa',
-      icon: 'alternate_email',
-      color: '#1da1f2'
+      icon: 'twitter',
+      color: '#111111'
+    },
+    {
+      name: 'Email',
+      url: 'https://mail.google.com/mail/?view=cm&fs=1&to=akkeshriaditya@gmail.com',
+      icon: 'email',
+      color: '#ea4335'
     }
   ];
 
