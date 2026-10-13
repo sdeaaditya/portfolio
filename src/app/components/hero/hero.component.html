@@ -170,12 +170,13 @@
         (mouseenter)="onNameEnter()"
         (mouseleave)="onNameLeave()"
         aria-label="Aditya Keshri">
-        <span
-          class="name-letter"
-          *ngFor="let item of nameChars; let i = index"
-          [class.space]="item.space"
-          [style.animation-delay.ms]="i * 70"
-          (mouseenter)="bounceLetter($event)">{{ item.char }}</span>
+        <span class="name-word" *ngFor="let word of nameWords; let wi = index">
+          <span
+            class="name-letter"
+            *ngFor="let item of word; let li = index"
+            [style.animation-delay.ms]="(wi * 8 + li) * 70"
+            (mouseenter)="bounceLetter($event)">{{ item.char }}</span>
+        </span>
       </h1>
       <h2 class="role visible">Senior Software Developer</h2>
       <p class="tagline visible">

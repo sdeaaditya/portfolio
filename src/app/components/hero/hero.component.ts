@@ -20,7 +20,7 @@ export class HeroComponent implements OnInit {
   typedCommands: string[] = [];
   isTyping = false;
   displayName = 'ADITYA KESHRI';
-  nameChars: { char: string; space: boolean }[] = [];
+  nameWords: { char: string }[][] = [];
   nameHovered = false;
 
   keys = Array(48).fill(0);
@@ -50,10 +50,9 @@ export class HeroComponent implements OnInit {
 
   ngOnInit() {
     this.animationState = 'in';
-    this.nameChars = this.displayName.split('').map(char => ({
-      char: char === ' ' ? '\u00A0' : char,
-      space: char === ' '
-    }));
+    this.nameWords = this.displayName
+      .split(' ')
+      .map(word => word.split('').map(char => ({ char })));
   }
 
   onNameEnter() {

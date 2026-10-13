@@ -697,9 +697,20 @@
 
     &.interactive-name {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.05em;
       cursor: default;
       user-select: none;
+
+      @media (max-width: 1024px) {
+        align-items: center;
+      }
+    }
+
+    .name-word {
+      display: inline-flex;
+      white-space: nowrap;
     }
 
     .name-letter {
@@ -713,10 +724,6 @@
       transition: transform 0.2s ease, filter 0.2s ease;
       will-change: transform;
 
-      &.space {
-        width: 0.35em;
-      }
-
       &:hover,
       &.letter-pop {
         animation: nameShine 4.5s linear infinite, letterPop 0.45s ease;
@@ -724,7 +731,7 @@
       }
     }
 
-    &.hovered .name-letter:not(.space) {
+    &.hovered .name-letter {
       animation: nameShine 4.5s linear infinite, nameFloat 1.8s ease-in-out infinite;
     }
 
