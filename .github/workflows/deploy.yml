@@ -26,13 +26,13 @@ jobs:
         run: npm install -g @angular/cli
 
       - name: Build Angular App
-        run: ng build --configuration production --output-path browser --base-href="/portfolio/"
+        run: ng build --configuration production --output-path dist --base-href="/portfolio/"
 
       - name: Add .nojekyll file
-        run: echo > browser/.nojekyll
+        run: echo > dist/browser/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./browser
+          publish_dir: ./dist/browser
