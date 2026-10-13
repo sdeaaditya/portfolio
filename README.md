@@ -10,7 +10,7 @@ A modern, responsive personal portfolio website showcasing my journey as a Senio
 
 ## 👨‍💻 About Me
 
-I'm **Aditya Keshri**, a Senior Software Developer at Netlink Software Group with 4+ years of experience building scalable healthcare and GenAI solutions. I specialize in:
+I'm **Aditya Keshri**, a Senior Software Developer at Netlink Software Group with 5+ years of experience building scalable healthcare and GenAI solutions. I specialize in:
 
 - 🤖 **GenAI Agents** - Alchemist sales intelligence and Feedback Agent for product insights
 - 🏥 **Healthcare Applications** - Enterprise-level solutions serving 100K+ users

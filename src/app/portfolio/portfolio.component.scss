@@ -19,6 +19,14 @@
   overflow: hidden;
 }
 
+.heli-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .nebula {
   position: absolute;
   border-radius: 50%;
@@ -61,13 +69,13 @@
 
 .vintage-heli {
   position: absolute;
-  top: 22%;
-  left: -220px;
-  width: 160px;
-  opacity: 0.9;
-  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45));
-  animation: heliFly 22s linear infinite;
-  z-index: 1;
+  top: 18%;
+  left: -260px;
+  width: min(220px, 28vw);
+  opacity: 1;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.55));
+  animation: heliFly 14s linear infinite;
+  z-index: 41;
 
   svg {
     width: 100%;
@@ -76,13 +84,13 @@
   }
 
   .rotor {
-    fill: rgba(220, 230, 245, 0.75);
+    fill: rgba(240, 245, 255, 0.9);
     transform-origin: 78px 10px;
     animation: rotorSpin 0.12s linear infinite;
   }
 
   .tail-rotor {
-    fill: rgba(200, 210, 230, 0.8);
+    fill: rgba(220, 230, 245, 0.95);
     transform-origin: 148px 30px;
     animation: tailSpin 0.1s linear infinite;
   }
@@ -93,12 +101,12 @@
     transform: translateX(0) translateY(0);
     opacity: 0;
   }
-  5% { opacity: 0.95; }
-  25% { transform: translateX(35vw) translateY(-8px); }
-  50% { transform: translateX(70vw) translateY(6px); }
-  90% { opacity: 0.95; }
+  4% { opacity: 1; }
+  30% { transform: translateX(40vw) translateY(-10px); }
+  60% { transform: translateX(75vw) translateY(8px); }
+  92% { opacity: 1; }
   100% {
-    transform: translateX(calc(100vw + 240px)) translateY(-4px);
+    transform: translateX(calc(100vw + 280px)) translateY(-6px);
     opacity: 0;
   }
 }
