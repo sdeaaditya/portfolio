@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+
+type ScreenMode = 'profile' | 'terminal' | 'dashboard';
 
 @Component({
   selector: 'app-hero',
@@ -10,30 +12,46 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss']
 })
-export class HeroComponent implements OnInit {
-  animationState = 'in';
+export class HeroComponent implements OnInit, OnDestroy {
   laptopOpened = true;
+  screenPowered = true;
+  booting = true;
   hologramActive = true;
   profileVisible = true;
   terminalActive = false;
-  textVisible = true;
+  dashboardActive = false;
   typedCommands: string[] = [];
   isTyping = false;
   displayName = 'ADITYA KESHRI';
   nameWords: { char: string }[][] = [];
   nameHovered = false;
+  screenMode: ScreenMode = 'profile';
+  tiltX = 0;
+  tiltY = 0;
+  glareX = 50;
+  glareY = 40;
+  clockLabel = '';
 
-  keys = Array(48).fill(0);
-  
-  codeSnippets = [
+  readonly modes: { id: ScreenMode; label: string; icon: string }[] = [
+    { id: 'profile', label: 'Profile', icon: 'person' },
+    { id: 'terminal', label: 'Terminal', icon: 'code' },
+    { id: 'dashboard', label: 'Stack', icon: 'grid_view' }
   ];
 
   terminalCommands = [
-    'git clone https://github.com/sdeaaditya/portfolio.git',
-    'npm install && npm run build',
-    'docker build -t portfolio:latest .',
-    'docker run -p 3000:3000 portfolio:latest',
-    'Application running successfully ✓'
+    'whoami',
+    '→ Aditya Keshri · Senior Software Developer',
+    'cat ~/stack.txt',
+    '→ Angular · Python · Java · Node · Gen AI',
+    'uptime --career',
+    '→ 5+ years building production systems ✓'
+  ];
+
+  dashboardStats = [
+    { label: 'Experience', value: '5+', unit: 'yrs' },
+    { label: 'Projects', value: '20+', unit: 'shipped' },
+    { label: 'Focus', value: 'Gen AI', unit: 'stack' },
+    { label: 'Status', value: 'Open', unit: 'to roles' }
   ];
 
   mainTechs = [
@@ -47,12 +65,27 @@ export class HeroComponent implements OnInit {
   ];
 
   private typingTimeouts: ReturnType<typeof setTimeout>[] = [];
+  private bootTimer?: ReturnType<typeof setTimeout>;
+  private clockTimer?: ReturnType<typeof setInterval>;
 
   ngOnInit() {
-    this.animationState = 'in';
     this.nameWords = this.displayName
       .split(' ')
       .map(word => word.split('').map(char => ({ char })));
+
+    this.tickClock();
+    this.clockTimer = setInterval(() => this.tickClock(), 30_000);
+
+    this.bootTimer = setTimeout(() => {
+      this.booting = false;
+      this.setMode('profile');
+    }, 1400);
+  }
+
+  ngOnDestroy() {
+    this.clearTypingTimers();
+    if (this.bootTimer) clearTimeout(this.bootTimer);
+    if (this.clockTimer) clearInterval(this.clockTimer);
   }
 
   onNameEnter() {
@@ -66,7 +99,6 @@ export class HeroComponent implements OnInit {
   bounceLetter(event: MouseEvent) {
     const target = event.currentTarget as HTMLElement;
     target.classList.remove('letter-pop');
-    // Force reflow so animation can replay
     void target.offsetWidth;
     target.classList.add('letter-pop');
   }
@@ -81,27 +113,83 @@ export class HeroComponent implements OnInit {
   scrollToContact() {
     const element = document.getElementById('contact');
     if (element) {
-      element.scrollIntoView({ 
+      element.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
     }
   }
 
+  onMonitorMove(event: MouseEvent) {
+    if (!this.screenPowered) return;
+    const el = event.currentTarget as HTMLElement;
+    const rect = el.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+    this.tiltY = (px - 0.5) * 10;
+    this.tiltX = (0.5 - py) * 8;
+    this.glareX = px * 100;
+    this.glareY = py * 100;
+  }
+
+  onMonitorLeave() {
+    this.tiltX = 0;
+    this.tiltY = 0;
+    this.glareX = 50;
+    this.glareY = 40;
+  }
+
   onMonitorClick() {
-    if (this.hologramActive) {
+    if (this.booting || !this.screenPowered) return;
+    const order: ScreenMode[] = ['profile', 'terminal', 'dashboard'];
+    const next = order[(order.indexOf(this.screenMode) + 1) % order.length];
+    this.setMode(next);
+  }
+
+  setMode(mode: ScreenMode, event?: Event) {
+    event?.stopPropagation();
+    if (this.booting || !this.screenPowered) return;
+
+    this.screenMode = mode;
+    this.clearTypingTimers();
+    this.typedCommands = [];
+    this.isTyping = false;
+
+    this.hologramActive = mode === 'profile';
+    this.profileVisible = mode === 'profile';
+    this.terminalActive = mode === 'terminal';
+    this.dashboardActive = mode === 'dashboard';
+
+    if (mode === 'terminal') {
+      this.startTerminalTyping();
+    }
+  }
+
+  togglePower(event: Event) {
+    event.stopPropagation();
+    this.screenPowered = !this.screenPowered;
+    if (!this.screenPowered) {
+      this.clearTypingTimers();
+      this.isTyping = false;
       this.hologramActive = false;
       this.profileVisible = false;
-      this.terminalActive = true;
-      this.startTerminalTyping();
-    } else {
-      this.clearTypingTimers();
       this.terminalActive = false;
-      this.hologramActive = true;
-      this.profileVisible = true;
-      this.typedCommands = [];
-      this.isTyping = false;
+      this.dashboardActive = false;
+      this.booting = false;
+    } else {
+      this.booting = true;
+      this.bootTimer = setTimeout(() => {
+        this.booting = false;
+        this.setMode(this.screenMode || 'profile');
+      }, 900);
     }
+  }
+
+  private tickClock() {
+    this.clockLabel = new Date().toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   }
 
   private startTerminalTyping() {
@@ -115,10 +203,10 @@ export class HeroComponent implements OnInit {
       for (let charIndex = 0; charIndex < command.length; charIndex++) {
         const timeout = setTimeout(() => {
           this.typedCommands[index] = command.slice(0, charIndex + 1);
-        }, delay + charIndex * 28);
+        }, delay + charIndex * 22);
         this.typingTimeouts.push(timeout);
       }
-      delay += command.length * 28 + 350;
+      delay += command.length * 22 + 280;
     });
 
     const doneTimeout = setTimeout(() => {

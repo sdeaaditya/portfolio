@@ -73,95 +73,141 @@
   </div>
 
   <div class="hero-content">
-        <!-- Samsung Monitor Container -->
     <div class="monitor-container">
-      <div class="monitor" [class.active]="laptopOpened">
-        <!-- Monitor Stand -->
-        <div class="monitor-stand">
-          <div class="stand-base"></div>
-          <div class="stand-neck"></div>
-        </div>
-        
-        <!-- Samsung Monitor Screen -->
-        <div class="monitor-screen" (click)="onMonitorClick()">          
-          <div class="screen-bezel">
-            <div class="screen-content">
-              <!-- Holographic Effect -->
-              <div class="hologram-container" [class.active]="hologramActive">
-                <div class="hologram-rings">
-                  <div class="ring ring-1"></div>
-                  <div class="ring ring-2"></div>
-                  
-                  <!-- Curved Text Between Purple Ring (Ring 3) and Grey Ring (Ring 4) -->
-                  <!-- <div class="curved-text">
-                    <svg viewBox="0 0 280 280">
-                      <defs>
-                        <path id="circle-path" d="M 140, 140 m -112.5, 0 a 112.5,112.5 0 1,1 225,0 a 112.5,112.5 0 1,1 -225,0"/>
-                      </defs>
-                      <text class="curved-path-text">
-                        <textPath href="#circle-path" startOffset="25%" textLength="50%">
-                          SENIOR SOFTWARE DEVELOPER
-                        </textPath>
-                      </text>
-                    </svg>
-                  </div> -->
-                  
-                  <div ></div>
-                  <div class="ring ring-4">
+      <div
+        class="monitor"
+        [class.active]="laptopOpened"
+        [class.powered]="screenPowered"
+        [class.booting]="booting"
+        [style.transform]="'perspective(1200px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)'"
+        (mousemove)="onMonitorMove($event)"
+        (mouseleave)="onMonitorLeave()">
 
-                    <svg viewBox="0 0 280 280">
-                      <defs>
-                        <path id="circle-path" d="M 140, 140 m -110, 0 a 110,110 0 1,1 220,0 a 110,110 0 1,1 -220,0"/> -->
-                      </defs>
-                      <text class="curved-path-text" fill="white">
-                        <textPath href="#circle-path" startOffset="50%" textLength="100%">
-                          SENIOR • SOFTWARE • DEVELOPER
-                        </textPath>
-                      </text>
-                    </svg>
+        <img
+          class="monitor-chassis"
+          src="assets/images/premium-monitor.jpg"
+          alt="Workstation monitor"
+          draggable="false" />
 
+        <div
+          class="screen-viewport"
+          (click)="onMonitorClick()"
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'Interactive screen, ' + screenMode + ' mode. Click to switch.'"
+          (keydown.enter)="onMonitorClick()"
+          (keydown.space)="$event.preventDefault(); onMonitorClick()">
 
-                    
-                  </div>
-                </div>
-                
-                <!-- Profile Image with Holographic Effect -->
-                <div class="profile-hologram" [class.visible]="profileVisible">
-                  <div class="profile-image">
-                    <img src="assets/images/Aditya_Photo.png" 
-                         alt="Aditya Keshri" class="dev-photo">
-                    <!-- <div class="developer-title">
-                      <span class="title-text">Senior Software Developer</span>
-                    </div> -->
-                    <div class="hologram-overlay"></div>
-                    <div class="scan-lines"></div>
-                  </div>
-                </div>
+          <div class="os-bar" *ngIf="screenPowered && !booting">
+            <span class="os-dot"></span>
+            <span class="os-title">sdeaaditya — {{ screenMode }}</span>
+            <span class="os-clock">{{ clockLabel }}</span>
+          </div>
+
+          <div class="boot-sequence" *ngIf="booting">
+            <div class="boot-logo">AK</div>
+            <div class="boot-bar"><span></span></div>
+            <p>Initializing workspace…</p>
+          </div>
+
+          <div class="screen-off" *ngIf="!screenPowered && !booting">
+            <span>Display off</span>
+            <small>Tap the LED to power on</small>
+          </div>
+
+          <div class="hologram-container" [class.active]="hologramActive && screenPowered && !booting">
+            <div class="hologram-rings">
+              <div class="ring ring-1"></div>
+              <div class="ring ring-2"></div>
+              <div class="ring ring-4">
+                <svg viewBox="0 0 280 280" aria-hidden="true">
+                  <defs>
+                    <path id="circle-path" d="M 140, 140 m -110, 0 a 110,110 0 1,1 220,0 a 110,110 0 1,1 -220,0"/>
+                  </defs>
+                  <text class="curved-path-text" fill="white">
+                    <textPath href="#circle-path" startOffset="0%">
+                      SENIOR • SOFTWARE • DEVELOPER •
+                    </textPath>
+                  </text>
+                </svg>
               </div>
-              
-              <!-- Terminal Effect -->
-              <div class="terminal-effect" [class.active]="terminalActive">
-                <div class="terminal-header">
-                  <div class="terminal-buttons">
-                    <span class="btn-close"></span>
-                    <span class="btn-minimize"></span>
-                    <span class="btn-maximize"></span>
-                  </div>
-                  <span class="terminal-title">sdeaaditya@portfolio:~$</span>
-                </div>
-                <div class="terminal-body">
-                  <div class="command-line" *ngFor="let cmd of typedCommands; let i = index">
-                    <span class="prompt">$</span>
-                    <span class="command">{{ cmd }}</span>
-                    <span class="cursor" *ngIf="isTyping && i === typedCommands.length - 1">▋</span>
-                  </div>
-                </div>
+            </div>
+
+            <div class="profile-hologram" [class.visible]="profileVisible">
+              <div class="profile-image">
+                <img src="assets/images/Aditya_Photo.png"
+                     alt="Aditya Keshri" class="dev-photo">
+                <div class="hologram-overlay"></div>
+                <div class="scan-lines"></div>
               </div>
             </div>
           </div>
+
+          <div class="terminal-effect" [class.active]="terminalActive && screenPowered && !booting">
+            <div class="terminal-header">
+              <div class="terminal-buttons">
+                <span class="btn-close"></span>
+                <span class="btn-minimize"></span>
+                <span class="btn-maximize"></span>
+              </div>
+              <span class="terminal-title">sdeaaditya@portfolio:~$</span>
+            </div>
+            <div class="terminal-body">
+              <div class="command-line" *ngFor="let cmd of typedCommands; let i = index">
+                <span class="prompt">$</span>
+                <span class="command">{{ cmd }}</span>
+                <span class="cursor" *ngIf="isTyping && i === typedCommands.length - 1">▋</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-effect" [class.active]="dashboardActive && screenPowered && !booting">
+            <div class="dash-grid">
+              <div class="dash-card" *ngFor="let stat of dashboardStats">
+                <span class="dash-label">{{ stat.label }}</span>
+                <span class="dash-value">{{ stat.value }}</span>
+                <span class="dash-unit">{{ stat.unit }}</span>
+              </div>
+            </div>
+            <div class="dash-tech">
+              <span *ngFor="let tech of mainTechs">{{ tech.name }}</span>
+            </div>
+          </div>
+
+          <div
+            class="screen-glare"
+            [style.background]="'radial-gradient(circle at ' + glareX + '% ' + glareY + '%, rgba(255,255,255,0.18), transparent 42%)'">
+          </div>
+          <div class="screen-scan"></div>
+
+          <div class="interact-hint" *ngIf="screenPowered && !booting">
+            Click screen to switch views
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="power-led"
+          [class.on]="screenPowered"
+          (click)="togglePower($event)"
+          [attr.aria-label]="screenPowered ? 'Turn display off' : 'Turn display on'">
+        </button>
+
+        <div class="mode-dock" *ngIf="screenPowered && !booting">
+          <button
+            type="button"
+            class="mode-btn"
+            *ngFor="let mode of modes"
+            [class.active]="screenMode === mode.id"
+            (click)="setMode(mode.id, $event)"
+            [attr.aria-label]="mode.label">
+            <mat-icon>{{ mode.icon }}</mat-icon>
+            <span>{{ mode.label }}</span>
+          </button>
         </div>
       </div>
     </div>
+
 
     <!-- Text Content -->
     <div class="hero-text">
