@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../components/header/header.component';
@@ -28,6 +28,26 @@ import { FooterComponent } from '../components/footer/footer.component';
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.scss']
 })
-export class PortfolioComponent {
+export class PortfolioComponent implements OnInit {
+  scrollProgress = 0;
 
+  ngOnInit() {
+    this.updateScrollProgress();
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.updateScrollProgress();
+  }
+
+  private updateScrollProgress() {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
+
+    const doc = document.documentElement;
+    const scrollTop = window.scrollY || doc.scrollTop;
+    const height = doc.scrollHeight - doc.clientHeight;
+    this.scrollProgress = height > 0 ? Math.min(100, (scrollTop / height) * 100) : 0;
+  }
 }

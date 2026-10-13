@@ -8,7 +8,14 @@
     <div class="timeline" [@staggerAnimation]="visible">
       <div class="timeline-item" *ngFor="let exp of experiences; let i = index" [class.reverse]="i % 2 === 1">
         <div class="timeline-content">
-          <mat-card class="experience-card">
+          <mat-card
+            class="experience-card"
+            [class.expanded]="isExpanded(exp.id)"
+            (click)="toggleExperience(exp.id)"
+            role="button"
+            tabindex="0"
+            (keydown.enter)="toggleExperience(exp.id)"
+            (keydown.space)="$event.preventDefault(); toggleExperience(exp.id)">
             <mat-card-header>
               <div class="card-header-content">
                 <div class="company-logo">
@@ -19,7 +26,10 @@
                   </div>
                 </div>
                 <div class="position-info">
-                  <mat-card-title>{{ exp.position }}</mat-card-title>
+                  <div class="title-row">
+                    <mat-card-title>{{ exp.position }}</mat-card-title>
+                    <mat-icon class="expand-icon">{{ isExpanded(exp.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
+                  </div>
                   <mat-card-subtitle class="company-name">
                     <mat-icon>business</mat-icon>
                     {{ exp.company }}
@@ -40,24 +50,28 @@
             
             <mat-card-content>
               <p class="description">{{ exp.description }}</p>
+
+              <p class="expand-hint" *ngIf="!isExpanded(exp.id)">Click to view achievements & tech</p>
               
-              <div class="achievements">
-                <h4>Key Achievements:</h4>
-                <ul>
-                  <li *ngFor="let achievement of exp.achievements">
-                    <mat-icon>check_circle</mat-icon>
-                    {{ achievement }}
-                  </li>
-                </ul>
-              </div>
-              
-              <div class="technologies">
-                <h4>Technologies Used:</h4>
-                <mat-chip-set>
-                  <mat-chip *ngFor="let tech of exp.technologies" class="tech-chip">
-                    {{ tech }}
-                  </mat-chip>
-                </mat-chip-set>
+              <div class="details" *ngIf="isExpanded(exp.id)">
+                <div class="achievements">
+                  <h4>Key Achievements:</h4>
+                  <ul>
+                    <li *ngFor="let achievement of exp.achievements">
+                      <mat-icon>check_circle</mat-icon>
+                      {{ achievement }}
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="technologies">
+                  <h4>Technologies Used:</h4>
+                  <mat-chip-set>
+                    <mat-chip *ngFor="let tech of exp.technologies" class="tech-chip">
+                      {{ tech }}
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
               </div>
             </mat-card-content>
           </mat-card>

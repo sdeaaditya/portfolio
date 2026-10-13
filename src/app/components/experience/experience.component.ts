@@ -46,6 +46,7 @@ interface Experience {
 })
 export class ExperienceComponent implements OnInit {
   visible = false;
+  expandedId: number | null = 1;
 
   experiences: Experience[] = [
     {
@@ -57,7 +58,7 @@ export class ExperienceComponent implements OnInit {
       description: 'As a Senior Software Developer at Netlink Software Group, I build enterprise backend platforms and GenAI-powered agents for life-science and product feedback use cases. I work across Python, FastAPI, React, cloud orchestration, and AI agent workflows to deliver production-ready solutions for client programs.',
       achievements: [
         'Evidence Planner (Dec 2025 – Jun 2026): Built a portal to create and update medicine-related activities and publish new medicine data for stakeholders across planning and publication workflows',
-        'Alchemist AI Agent (mid-Jun 2026 – Aug 2026): Developed an AI agent that tracks medicine sales across 133 territories; users upload PDF data, the agent extracts insights, and returns sales performance percentages with top-performing medicines',
+        'Alchemist AI Agent (Jun 2026 – Aug 2026): Developed an AI agent that tracks medicine sales across 133 territories; users upload PDF data, the agent extracts insights, and returns sales performance percentages with top-performing medicines',
         'Feedback Agent (Aug 2026 – Present): Built an installable feedback agent that captures mouse interactions, supports screen recording, converses with users about bugs or feedback, and creates tickets on Jira, Confluence, or Azure DevOps boards based on the integrated tool'
       ],
       technologies: ['Python', 'FastAPI', 'React', 'GenAI', 'AWS', 'Docker', 'Airflow', 'PDF Parsing'],
@@ -117,6 +118,14 @@ export class ExperienceComponent implements OnInit {
       current: false
     }
   ];
+
+  toggleExperience(id: number) {
+    this.expandedId = this.expandedId === id ? null : id;
+  }
+
+  isExpanded(id: number): boolean {
+    return this.expandedId === id;
+  }
 
   ngOnInit() {
     // Use Intersection Observer to trigger animations when section is visible

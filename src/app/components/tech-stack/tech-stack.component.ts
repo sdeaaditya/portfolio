@@ -48,6 +48,7 @@ interface Technology {
 export class TechStackComponent implements OnInit {
   visible = false;
   hoveredTech: string | null = null;
+  activeCategory: string = 'all';
 
   technologies: Technology[] = [
     // Frontend
@@ -287,6 +288,22 @@ export class TechStackComponent implements OnInit {
     { key: 'cloud', label: 'Cloud', icon: 'cloud' },
     { key: 'genai', label: 'Gen AI', icon: 'auto_awesome' }
   ];
+
+  filterTabs = [
+    { key: 'all', label: 'All', icon: 'apps' },
+    ...this.categories
+  ];
+
+  setActiveCategory(category: string) {
+    this.activeCategory = category;
+  }
+
+  get visibleCategories() {
+    if (this.activeCategory === 'all') {
+      return this.categories;
+    }
+    return this.categories.filter(category => category.key === this.activeCategory);
+  }
 
   ngOnInit() {
     // Use Intersection Observer to trigger animations when section is visible

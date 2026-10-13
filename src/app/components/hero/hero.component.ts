@@ -12,13 +12,14 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HeroComponent implements OnInit {
   animationState = 'in';
-  laptopOpened = true; // Static - always opened
-  hologramActive = true; // Static - always active
-  profileVisible = true; // Static - always visible
-  terminalActive = false; // Static - terminal off by default
-  textVisible = true; // Static - always visible
+  laptopOpened = true;
+  hologramActive = true;
+  profileVisible = true;
+  terminalActive = false;
+  textVisible = true;
+  typedCommands: string[] = [];
+  isTyping = false;
 
-  // Static flags
   keys = Array(48).fill(0);
   
   codeSnippets = [
@@ -42,13 +43,13 @@ export class HeroComponent implements OnInit {
     { icon: '☁️', name: 'AWS/Azure' },
   ];
 
+  private typingTimeouts: ReturnType<typeof setTimeout>[] = [];
+
   ngOnInit() {
-    // Static initialization - no animations
     this.animationState = 'in';
   }
 
   downloadResume() {
-    // For demo purposes - in real app, this would download an actual resume
     const link = document.createElement('a');
     link.href = 'https://drive.google.com/uc?export=download&id=1raxpa3jaa_JEf7VWAvjxCilKqQwkw6v_';
     link.download = 'Aditya_Keshri_Resume.pdf';
@@ -66,15 +67,46 @@ export class HeroComponent implements OnInit {
   }
 
   onMonitorClick() {
-    // Toggle between hologram and terminal view - instant switching
     if (this.hologramActive) {
       this.hologramActive = false;
       this.profileVisible = false;
       this.terminalActive = true;
+      this.startTerminalTyping();
     } else {
+      this.clearTypingTimers();
       this.terminalActive = false;
       this.hologramActive = true;
-      this.profileVisible = true; // Instant visibility
+      this.profileVisible = true;
+      this.typedCommands = [];
+      this.isTyping = false;
     }
+  }
+
+  private startTerminalTyping() {
+    this.clearTypingTimers();
+    this.typedCommands = [];
+    this.isTyping = true;
+
+    let delay = 0;
+    this.terminalCommands.forEach((command, index) => {
+      this.typedCommands.push('');
+      for (let charIndex = 0; charIndex < command.length; charIndex++) {
+        const timeout = setTimeout(() => {
+          this.typedCommands[index] = command.slice(0, charIndex + 1);
+        }, delay + charIndex * 28);
+        this.typingTimeouts.push(timeout);
+      }
+      delay += command.length * 28 + 350;
+    });
+
+    const doneTimeout = setTimeout(() => {
+      this.isTyping = false;
+    }, delay);
+    this.typingTimeouts.push(doneTimeout);
+  }
+
+  private clearTypingTimers() {
+    this.typingTimeouts.forEach(timeout => clearTimeout(timeout));
+    this.typingTimeouts = [];
   }
 }

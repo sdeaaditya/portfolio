@@ -5,8 +5,20 @@
       <p class="section-subtitle">Technologies and tools I work with</p>
     </div>
 
+    <div class="filter-tabs" [@slideInUp]="visible">
+      <button
+        type="button"
+        class="filter-tab"
+        *ngFor="let tab of filterTabs"
+        [class.active]="activeCategory === tab.key"
+        (click)="setActiveCategory(tab.key)">
+        <mat-icon>{{ tab.icon }}</mat-icon>
+        <span>{{ tab.label }}</span>
+      </button>
+    </div>
+
     <div class="categories-grid" [@staggerGrid]="visible">
-      <div class="category-section" *ngFor="let category of categories">
+      <div class="category-section" *ngFor="let category of visibleCategories">
         <div class="category-header">
           <mat-icon>{{ category.icon }}</mat-icon>
           <h3>{{ category.label }}</h3>

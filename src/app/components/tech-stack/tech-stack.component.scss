@@ -46,6 +46,47 @@
   }
 }
 
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: #c8c8c8;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    border-color: rgba(0, 212, 255, 0.45);
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.35), rgba(0, 212, 255, 0.25));
+    border-color: rgba(0, 212, 255, 0.6);
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.15);
+  }
+}
+
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

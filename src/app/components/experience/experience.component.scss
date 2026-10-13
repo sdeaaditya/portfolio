@@ -163,13 +163,24 @@
   border-radius: 20px;
   transition: all 0.3s ease;
   color: white;
-  overflow: hidden;
+  cursor: pointer;
+
+  &.expanded {
+    border-color: rgba(0, 212, 255, 0.35);
+    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.12);
+  }
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    border-color: rgba(102, 126, 234, 0.3);
+    transform: translateY(-4px);
+    border-color: rgba(102, 126, 234, 0.4);
   }
+
+  &:focus-visible {
+    outline: 2px solid #00d4ff;
+    outline-offset: 3px;
+  }
+
+  overflow: hidden;
 
   mat-card-header {
     padding: 2rem 2rem 1rem 2rem;
@@ -235,6 +246,18 @@
 .position-info {
   flex: 1;
 
+  .title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .expand-icon {
+    color: #00d4ff;
+    flex-shrink: 0;
+  }
+
   mat-card-title {
     color: #ffffff;
     font-size: 1.5rem;
@@ -295,6 +318,28 @@
   line-height: 1.7;
   margin-bottom: 1.5rem;
   font-size: 1rem;
+}
+
+.expand-hint {
+  color: #7ec8e3;
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.details {
+  animation: detailsIn 0.35s ease;
+}
+
+@keyframes detailsIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .achievements {

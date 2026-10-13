@@ -148,10 +148,10 @@
                   <span class="terminal-title">sdeaaditya@portfolio:~$</span>
                 </div>
                 <div class="terminal-body">
-                  <div class="command-line" *ngFor="let cmd of terminalCommands; let i = index"
-                       [style.animation-delay.s]="i * 0.8">
+                  <div class="command-line" *ngFor="let cmd of typedCommands; let i = index">
                     <span class="prompt">$</span>
                     <span class="command">{{ cmd }}</span>
+                    <span class="cursor" *ngIf="isTyping && i === typedCommands.length - 1">▋</span>
                   </div>
                 </div>
               </div>
