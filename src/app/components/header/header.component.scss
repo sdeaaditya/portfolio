@@ -4,19 +4,19 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: linear-gradient(135deg, rgba(15, 15, 23, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(5, 10, 28, 0.72) 0%, rgba(10, 16, 45, 0.78) 100%);
   backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+  border-bottom: 1px solid rgba(79, 209, 255, 0.22);
   transition: all 0.3s ease;
   height: 60px;
   padding: 0;
-  box-shadow: 0 2px 15px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 2px 15px rgba(79, 209, 255, 0.08);
 
   &.scrolled {
-    background: linear-gradient(135deg, rgba(15, 15, 23, 0.98) 0%, rgba(26, 26, 46, 0.98) 100%);
+    background: linear-gradient(135deg, rgba(5, 10, 28, 0.88) 0%, rgba(10, 16, 45, 0.92) 100%);
     backdrop-filter: blur(20px);
-    box-shadow: 0 4px 25px rgba(102, 126, 234, 0.2);
-    border-bottom-color: rgba(102, 126, 234, 0.5);
+    box-shadow: 0 4px 25px rgba(124, 92, 255, 0.18);
+    border-bottom-color: rgba(124, 92, 255, 0.4);
   }
 }
 

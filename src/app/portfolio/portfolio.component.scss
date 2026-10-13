@@ -48,6 +48,73 @@
   animation-delay: -6s;
 }
 
+.nebula-c {
+  width: 28vw;
+  height: 28vw;
+  min-width: 200px;
+  min-height: 200px;
+  left: 40%;
+  top: 55%;
+  background: radial-gradient(circle, rgba(255, 106, 213, 0.22), transparent 70%);
+  animation-delay: -11s;
+}
+
+.vintage-heli {
+  position: absolute;
+  top: 22%;
+  left: -220px;
+  width: 160px;
+  opacity: 0.9;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45));
+  animation: heliFly 22s linear infinite;
+  z-index: 1;
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .rotor {
+    fill: rgba(220, 230, 245, 0.75);
+    transform-origin: 78px 10px;
+    animation: rotorSpin 0.12s linear infinite;
+  }
+
+  .tail-rotor {
+    fill: rgba(200, 210, 230, 0.8);
+    transform-origin: 148px 30px;
+    animation: tailSpin 0.1s linear infinite;
+  }
+}
+
+@keyframes heliFly {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0;
+  }
+  5% { opacity: 0.95; }
+  25% { transform: translateX(35vw) translateY(-8px); }
+  50% { transform: translateX(70vw) translateY(6px); }
+  90% { opacity: 0.95; }
+  100% {
+    transform: translateX(calc(100vw + 240px)) translateY(-4px);
+    opacity: 0;
+  }
+}
+
+@keyframes rotorSpin {
+  from { transform: scaleX(1); }
+  50% { transform: scaleX(0.15); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes tailSpin {
+  from { transform: scaleY(1); }
+  50% { transform: scaleY(0.2); }
+  to { transform: scaleY(1); }
+}
+
 .stars {
   position: absolute;
   inset: 0;
@@ -124,8 +191,15 @@
 @media (prefers-reduced-motion: reduce) {
   .stars,
   .nebula,
-  .shooting-star {
+  .shooting-star,
+  .vintage-heli,
+  .vintage-heli .rotor,
+  .vintage-heli .tail-rotor {
     animation: none !important;
+  }
+
+  .vintage-heli {
+    display: none;
   }
 }
 
