@@ -96,10 +96,48 @@ export class HeroComponent implements OnInit, OnDestroy {
     target.classList.add('letter-pop');
   }
 
-  downloadResume() {
+  async downloadResume() {
+    const fallback = {
+      fileId: '1raxpa3jaa_JEf7VWAvjxCilKqQwkw6v_',
+      fileName: 'Aditya_Keshri_Resume.pdf'
+    };
+
+    try {
+      const local = await this.loadResumeConfig(
+        `assets/resume-config.json?t=${Date.now()}`
+      );
+      const config = local.remoteConfigUrl
+        ? await this.loadResumeConfig(
+            `${local.remoteConfigUrl}${local.remoteConfigUrl.includes('?') ? '&' : '?'}t=${Date.now()}`
+          ).catch(() => local)
+        : local;
+
+      this.triggerResumeDownload(
+        config.fileId || fallback.fileId,
+        config.fileName || fallback.fileName
+      );
+    } catch {
+      this.triggerResumeDownload(fallback.fileId, fallback.fileName);
+    }
+  }
+
+  private async loadResumeConfig(url: string): Promise<{
+    fileId?: string;
+    fileName?: string;
+    remoteConfigUrl?: string;
+  }> {
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`Resume config HTTP ${response.status}`);
+    }
+    return response.json();
+  }
+
+  private triggerResumeDownload(fileId: string, fileName: string) {
     const link = document.createElement('a');
-    link.href = 'https://drive.google.com/uc?export=download&id=1raxpa3jaa_JEf7VWAvjxCilKqQwkw6v_';
-    link.download = 'Aditya_Keshri_Resume.pdf';
+    link.href = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    link.download = fileName;
+    link.rel = 'noopener';
     link.click();
   }
 
