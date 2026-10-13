@@ -67,32 +67,71 @@
   animation-delay: -11s;
 }
 
-.vintage-heli {
+.toy-heli {
   position: absolute;
-  top: 18%;
-  left: -260px;
-  width: min(220px, 28vw);
+  top: 12%;
+  left: -280px;
+  width: min(230px, 32vw);
   opacity: 1;
-  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.55));
-  animation: heliFly 14s linear infinite;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+  animation: heliFly 16s linear infinite;
   z-index: 41;
 
-  svg {
+  .heli-body-wrap {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    /* hide baked-in static rotors from the PNG */
+    clip-path: inset(28% 0 0 0);
+    margin-top: -6%;
+  }
+
+  .heli-body {
     width: 100%;
     height: auto;
     display: block;
   }
 
-  .rotor {
-    fill: rgba(240, 245, 255, 0.9);
-    transform-origin: 78px 10px;
-    animation: rotorSpin 0.12s linear infinite;
+  .rotor-assembly {
+    position: absolute;
+    left: 40%;
+    top: 10%;
+    width: 86%;
+    aspect-ratio: 1;
+    z-index: 2;
+    animation: rotorSpin 0.28s linear infinite;
   }
 
-  .tail-rotor {
-    fill: rgba(220, 230, 245, 0.95);
-    transform-origin: 148px 30px;
-    animation: tailSpin 0.1s linear infinite;
+  .blade {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46%;
+    height: 9%;
+    margin-left: -3%;
+    margin-top: -4.5%;
+    border-radius: 45% 55% 55% 45%;
+    background: linear-gradient(90deg, #7fe0ef 0%, #45c9dc 50%, #2eb4c8 100%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+    transform-origin: 6% 50%;
+  }
+
+  .b1 { transform: rotate(0deg); }
+  .b2 { transform: rotate(90deg); }
+  .b3 { transform: rotate(180deg); }
+  .b4 { transform: rotate(270deg); }
+
+  .rotor-hub {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 13%;
+    height: 13%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe08a, #ff9226 55%, #f06a00);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28), 0 2px 6px rgba(0, 0, 0, 0.35);
+    z-index: 3;
   }
 }
 
@@ -102,25 +141,18 @@
     opacity: 0;
   }
   4% { opacity: 1; }
-  30% { transform: translateX(40vw) translateY(-10px); }
-  60% { transform: translateX(75vw) translateY(8px); }
+  30% { transform: translateX(40vw) translateY(-12px); }
+  60% { transform: translateX(75vw) translateY(10px); }
   92% { opacity: 1; }
   100% {
-    transform: translateX(calc(100vw + 280px)) translateY(-6px);
+    transform: translateX(calc(100vw + 300px)) translateY(-8px);
     opacity: 0;
   }
 }
 
 @keyframes rotorSpin {
-  from { transform: scaleX(1); }
-  50% { transform: scaleX(0.15); }
-  to { transform: scaleX(1); }
-}
-
-@keyframes tailSpin {
-  from { transform: scaleY(1); }
-  50% { transform: scaleY(0.2); }
-  to { transform: scaleY(1); }
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .stars {
@@ -200,13 +232,12 @@
   .stars,
   .nebula,
   .shooting-star,
-  .vintage-heli,
-  .vintage-heli .rotor,
-  .vintage-heli .tail-rotor {
+  .toy-heli,
+  .toy-heli .rotor-assembly {
     animation: none !important;
   }
 
-  .vintage-heli {
+  .toy-heli {
     display: none;
   }
 }
