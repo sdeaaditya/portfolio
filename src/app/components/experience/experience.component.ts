@@ -61,7 +61,7 @@ export class ExperienceComponent implements OnInit {
         'Feedback Agent (Aug 2026 – Present): Built an installable feedback agent that captures mouse interactions, supports screen recording, converses with users about bugs or feedback, and creates tickets on Jira, Confluence, or Azure DevOps boards based on the integrated tool'
       ],
       technologies: ['Python', 'FastAPI', 'React', 'GenAI', 'AWS', 'Docker', 'Airflow', 'PDF Parsing'],
-      logo: 'assets/images/Netlink.svg',
+      logo: 'assets/images/Netlink.jpg',
       current: true
     },
     {
