@@ -23,8 +23,8 @@ export class FooterComponent {
   ];
 
   socialLinks = [
-    { name: 'GitHub', icon: 'code', url: 'https://github.com/keshriaditya' },
-    { name: 'LinkedIn', icon: 'work', url: 'https://linkedin.com/in/keshriaditya' },
+    { name: 'GitHub', icon: 'code', url: 'https://github.com/sdeaaditya' },
+    { name: 'LinkedIn', icon: 'work', url: 'https://linkedin.com/in/sdeaditya' },
     { name: 'Twitter', icon: 'alternate_email', url: 'https://twitter.com/keshriadityaa' },
     { name: 'Email', icon: 'email', url: 'mailto:akkeshriaditya@gmail.com' }
   ];

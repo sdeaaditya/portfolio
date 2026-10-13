@@ -6,16 +6,16 @@ A modern, responsive personal portfolio website showcasing my journey as a Senio
 
 ## 🌟 Live Demo
 
-🔗 **[View Live Portfolio](https://keshriaditya.github.io/portfolio/)**
+🔗 **[View Live Portfolio](https://sdeaaditya.github.io/portfolio/)**
 
 ## 👨‍💻 About Me
 
-I'm **Aditya Keshri**, a Senior Software Developer at ZeOmega Infotech with 3+ years of experience in building scalable healthcare applications. I specialize in:
+I'm **Aditya Keshri**, a Senior Software Developer at Netlink Software Group with 4+ years of experience building scalable healthcare and GenAI solutions. I specialize in:
 
+- 🤖 **GenAI Agents** - Alchemist sales intelligence and Feedback Agent for product insights
 - 🏥 **Healthcare Applications** - Enterprise-level solutions serving 100K+ users
 - 🏗️ **Microservices Architecture** - Scalable and secure API integrations
-- ☁️ **Cloud-Native Development** - Kubernetes, Docker, and Azure deployments
-- 👥 **Team Leadership** - Mentoring junior developers and establishing best practices
+- ☁️ **Cloud-Native Development** - AWS, Kubernetes, Docker, and Azure deployments
 
 ## ✨ Features
 
@@ -95,32 +95,32 @@ portfolio/
 ### 1. **Data Agency Management System**
 - **Tech:** ReactJs, MongoDB, Express.js, Tailwind CSS
 - **Features:** Client onboarding, project tracking, secure access controls
-- **[GitHub](https://github.com/keshriaditya/dba-project)**
+- **[GitHub](https://github.com/sdeaaditya/dba-project)**
 
 ### 2. **MediCart – Online Pharmacy Platform**
 - **Tech:** Angular, Node.js, MongoDB, Stripe API
 - **Features:** Prescription uploads, inventory management, order tracking
-- **[GitHub](https://github.com/keshriaditya/medicart)**
+- **[GitHub](https://github.com/sdeaaditya/medicart)**
 
 ### 3. **Task Management App**
 - **Tech:** React, Express.js, PostgreSQL, Socket.io
 - **Features:** Real-time collaboration, file sharing, team management
-- **[GitHub](https://github.com/keshriaditya/task-manager)**
+- **[GitHub](https://github.com/sdeaaditya/task-manager)**
 
 ### 4. **Weather Dashboard**
 - **Tech:** Vue.js, D3.js, OpenWeather API, Mapbox
 - **Features:** Real-time weather data, interactive maps, forecasting
-- **[GitHub](https://github.com/keshriaditya/weather-report)**
+- **[GitHub](https://github.com/sdeaaditya/weather-report)**
 
 ### 5. **AI Chat Assistant**
 - **Tech:** Python, TensorFlow, Flask, React, Docker
 - **Features:** Natural language processing, context-aware responses
-- **[GitHub](https://github.com/keshriaditya/chat-assist)**
+- **[GitHub](https://github.com/sdeaaditya/chat-assist)**
 
 ### 6. **Crypto Tracker**
 - **Tech:** React Native, Node.js, CoinGecko API, MongoDB
 - **Features:** Real-time crypto prices, portfolio tracking, alerts
-- **[GitHub](https://github.com/keshriaditya/crypto-tracker)**
+- **[GitHub](https://github.com/sdeaaditya/crypto-tracker)**
 
 ## 📊 Performance
 
@@ -143,8 +143,8 @@ portfolio/
 - **📧 Email:** [akkeshriaditya@gmail.com](mailto:akkeshriaditya@gmail.com)
 - **📱 Phone:** [+91 9560061303](tel:+919560061303)
 - **📍 Location:** Bangalore, Karnataka, India
-- **💼 LinkedIn:** [linkedin.com/in/keshriaditya](https://linkedin.com/in/keshriaditya)
-- **🐙 GitHub:** [github.com/keshriaditya](https://github.com/keshriaditya)
+- **💼 LinkedIn:** [linkedin.com/in/sdeaditya](https://linkedin.com/in/sdeaditya)
+- **🐙 GitHub:** [github.com/sdeaaditya](https://github.com/sdeaaditya)
 
 ---
 
@@ -171,7 +171,7 @@ npm install -g @angular/cli
 #### 1. **Clone the Repository**
 ```bash
 # Clone the project
-git clone https://github.com/keshriaditya/portfolio.git
+git clone https://github.com/sdeaaditya/portfolio.git
 
 # Navigate to project directory
 cd portfolio

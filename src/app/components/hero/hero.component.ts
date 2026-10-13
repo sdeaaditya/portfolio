@@ -25,7 +25,7 @@ export class HeroComponent implements OnInit {
   ];
 
   terminalCommands = [
-    'git clone https://github.com/keshriaditya/portfolio.git',
+    'git clone https://github.com/sdeaaditya/portfolio.git',
     'npm install && npm run build',
     'docker build -t portfolio:latest .',
     'docker run -p 3000:3000 portfolio:latest',

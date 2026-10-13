@@ -70,13 +70,13 @@ export class ContactComponent implements OnInit {
   socialLinks: SocialLink[] = [
     {
       name: 'GitHub',
-      url: 'https://github.com/keshriaditya',
+      url: 'https://github.com/sdeaaditya',
       icon: 'code',
       color: '#333333'
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/keshriaditya',
+      url: 'https://linkedin.com/in/sdeaditya',
       icon: 'work',
       color: '#0077b5'
     },
@@ -88,19 +88,19 @@ export class ContactComponent implements OnInit {
     },
     // {
     //   name: 'Instagram',
-    //   url: 'https://instagram.com/keshriaditya',
+    //   url: 'https://instagram.com/sdeaaditya',
     //   icon: 'camera_alt',
     //   color: '#e4405f'
     // },
     // {
     //   name: 'YouTube',
-    //   url: 'https://youtube.com/keshriaditya',
+    //   url: 'https://youtube.com/sdeaaditya',
     //   icon: 'play_circle',
     //   color: '#ff0000'
     // },
     // {
     //   name: 'Discord',
-    //   url: 'https://discord.gg/keshriaditya',
+    //   url: 'https://discord.gg/sdeaaditya',
     //   icon: 'chat',
     //   color: '#7289da'
     // }
